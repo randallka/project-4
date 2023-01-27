@@ -3,13 +3,18 @@ import bcrypt from 'bcrypt';
 
 const SALT_ROUNDS = 6;
 
-const userSchema = new mongoose.Schema({
-  username: {type: String, required: true, lowercase: true, unique: true},
-  email: {type: String, required: true, lowercase: true, unique: true},
-  password: String
-}, {
-  timestamps: true
-});
+const userSchema = new mongoose.Schema(
+  {
+    firstName: { type: String, required: true, lowercase: true },
+    lastName: { type: String, required: true, lowercase: true },
+    address: { type: String, required: true, lowercase: true, unique: true },
+    password: String,
+    isRestrauntOwner: Boolean,
+  },
+  {
+    timestamps: true,
+  }
+);
 
 userSchema.set('toJSON', {
   transform: function(doc, ret) {
