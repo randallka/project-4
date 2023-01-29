@@ -7,9 +7,10 @@ const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true, lowercase: true },
     lastName: { type: String, required: true, lowercase: true },
+    email: { type: String, required: true, unique: true },
     address: { type: String, required: true, lowercase: true, unique: true },
-    password: String,
-    isRestrauntOwner: Boolean,
+    password: { type: String, required: true },
+    isRestrauntOwner: { type: Boolean, required: true },
   },
   {
     timestamps: true,
