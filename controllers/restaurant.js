@@ -42,11 +42,46 @@ function create(req, res) {
   }); 
 }
 
-async function index(req, res) {
- 
+async function findByOwner(req, res) { 
+    try{ 
+        console.log(req.params, "req.params");
+        const restaurant = await Restaurant.find({ owner: req.params.ownerId });
+        console.log(restaurant);
+        res.status(200).json({ data: restaurant });
+    } catch(err) { 
+        console.log(err, "error in findByOner controller function")
+    }
 }
+async function index(req, res) {
+ try {
+   const restaurants = await Restaurant.find({}).populate("owner").exec(); 
+   res.status(200).json({ data: restaurants });
+ } catch (err) {
+   res.status(400).json({ err });
+ }
+}
+
+async function edit(req, res) {
+    console.log(req.params) 
+    console.log(req.body)
+    try{ 
+let update = await Restaurant.findByIdAndUpdate(req.params.restaurantId, { 
+        name: req.body.name, 
+        address: req.body.address, 
+        description: req.body.description,
+    })
+    res.status(200).json({ data: update });
+    } catch (err) { 
+        console.log(err)
+    }
+   
+    
+}
+
 
 export default {
   create,
   index,
+  findByOwner, 
+  edit
 };

@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import {
   Container,
   Dropdown,
-  Header,
   Image,
   Menu,
 } from "semantic-ui-react";
+import { useContext } from "react";
+import { UserContext } from "../../App";
 
 function PageHeader({logout}) {
+    const user = useContext(UserContext)
   return (
     <Menu inverted>
       <Container>
@@ -28,19 +30,17 @@ function PageHeader({logout}) {
 
         <Dropdown item simple text="Dropdown">
           <Dropdown.Menu>
-            <Dropdown.Item>List Item</Dropdown.Item>
-            <Dropdown.Item>List Item</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Header>Header Item</Dropdown.Header>
-            <Dropdown.Item>
-              <i className="dropdown icon" />
-              <span className="text">Submenu</span>
-              <Dropdown.Menu>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown.Item>
-            <Dropdown.Item>List Item</Dropdown.Item>
+            {user.isRestaurantOwner ? 
+            <>
+            <Dropdown.Item>Restaurant Info</Dropdown.Item>
+            <Dropdown.Item>Menu</Dropdown.Item>
+            <Dropdown.Item>Orders</Dropdown.Item>
+            </>
+            : 
+            <>
+            <Dropdown.Item>Orders</Dropdown.Item>
+            <Dropdown.Item>Profile</Dropdown.Item>
+            </>}
           </Dropdown.Menu>
         </Dropdown>
       </Container>
