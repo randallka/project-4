@@ -62,3 +62,11 @@ export function edit(id, data) {
         });
     })
 }
+export async function index() {
+	const data = await fetch(BASE_URL, {
+	  headers: {
+		'Authorization': 'Bearer ' + tokenService.getToken()
+	  }
+	})
+	return data.json()
+  }

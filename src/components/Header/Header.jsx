@@ -32,8 +32,10 @@ function PageHeader({logout}) {
           <Dropdown.Menu>
             {user.isRestaurantOwner ? 
             <>
-            <Dropdown.Item>Restaurant Info</Dropdown.Item>
-            <Dropdown.Item>Menu</Dropdown.Item>
+            <Dropdown.Item as={Link} to='/'>Restaurant Info</Dropdown.Item>
+            
+            <Dropdown.Item as={Link} to='/menu'>Menu</Dropdown.Item>
+            
             <Dropdown.Item>Orders</Dropdown.Item>
             </>
             : 

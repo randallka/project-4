@@ -54,7 +54,8 @@ async function findByOwner(req, res) {
 }
 async function index(req, res) {
  try {
-   const restaurants = await Restaurant.find({}).populate("owner").exec(); 
+   const restaurants = await Restaurant.find({}).exec();
+   console.log(restaurants) 
    res.status(200).json({ data: restaurants });
  } catch (err) {
    res.status(400).json({ err });

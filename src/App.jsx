@@ -8,6 +8,7 @@ import RestaurantHome from "./pages/RestaurantHome/RestaurantHome";
 import CustomerHome from "./pages/CustomerHome/CustomerHome";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import Layout from "./pages/Layout/Layout";
+import MenuPage from "./pages/MenuPage/MenuPage";
 import userService from "./utils/userService";
 
 export const UserContext = createContext();
@@ -31,7 +32,7 @@ function App() {
             {user.isRestaurantOwner ? (
               <>
                 <Route index element={<RestaurantHome />} />
-                <Route path="/orders" element={<RestaurantHome />} />
+                <Route path="/menu" element={<MenuPage />} />
               </>
             ) : (
               <Route index element={<CustomerHome />} />
