@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema(
     lastName: { type: String, required: true, lowercase: true },
     email: { type: String, required: true, unique: true },
     address: { type: String, required: true, lowercase: true, unique: true },
-    password: { type: String, required: true },
-    isRestrauntOwner: { type: Boolean, required: true },
+    password: String,
+    isRestaurantOwner: {type: Boolean},
   },
   {
     timestamps: true,
@@ -19,13 +19,11 @@ const userSchema = new mongoose.Schema(
 
 userSchema.set('toJSON', {
   transform: function(doc, ret) {
-    // remove the password property when serializing doc to JSON
     delete ret.password;
     return ret;
   }
 });
 
-// this is if you populate the user
 userSchema.set('toObject', {
   transform: (doc, ret, opt) => {
    delete ret.password;
@@ -33,8 +31,7 @@ userSchema.set('toObject', {
   }
 })
 
-// DO NOT DEFINE instance methods with arrow functions, 
-// they prevent the binding of this
+
 userSchema.pre('save', function(next) {
   // 'this' will be set to the current document
   const user = this;

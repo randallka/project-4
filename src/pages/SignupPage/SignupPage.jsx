@@ -23,6 +23,7 @@ function SignUpPage({ handleSignUpOrLogin }) {
 
   async function handleSubmit(e) {
     e.preventDefault(); 
+    console.log(state, "state")
 if (state.password === state.passwordConf) { 
     try {
         
@@ -48,7 +49,6 @@ if (state.password === state.passwordConf) {
     });
   }
   function handleCheck(e) { 
-    console.log(e.target)
     setState({
       ...state,
       isRestaurantOwner: !state.isRestaurantOwner,
@@ -73,7 +73,7 @@ if (state.password === state.passwordConf) {
             <Form.Input
               name="firstName"
               placeholder="First Name"
-              onClick={handleChange}
+              onChange={handleChange}
               required
             />
             <Form.Input

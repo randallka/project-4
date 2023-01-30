@@ -36,7 +36,7 @@ const user = useContext(UserContext);
       navigate("/");
     } catch (err) {
       console.log(err.message, " this is the error in restaurant create page");
-      setError("Check your terminal, there was an error creating the restaurant");
+      setError("Error creating restaurant, please try again");
     }
   }
 
