@@ -1,31 +1,25 @@
 import { useState, useEffect, useContext } from "react";
 import { getRestaurantByOwner } from "../../utils/restaurantApi";
 import { UserContext } from "../../App";
+import { RestaurantContext } from "../../App";
 import EditRestaurantForm from "../../components/EditRestaurantForm/EditRestaurantForm";
-function RestaurantHome() {
+function RestaurantHome({setRestaurant}) {
     const user = useContext(UserContext)
-    const [restaurant, setRestaurant] = useState({});
+    const restaurant = useContext(RestaurantContext)
 
-    useEffect(() => {
-      async function getRestaurant() {
-        if (user.isRestaurantOwner) {
-          const response = await getRestaurantByOwner(user);
-          const data = (response.data[0])
-          setRestaurant(data);
-        }
-      }
-      getRestaurant();
-    }, []);
-
-    function updateRestaurant(data) { 
-        setRestaurant(data)
-    }
+    
     return ( <>
+    {restaurant ? 
+    <>
     <h1>{restaurant.name}</h1>
     <p>{restaurant.description}</p>
     <p>{restaurant.address}</p>
-    <EditRestaurantForm restaurant={restaurant} setRestaurant={updateRestaurant}/>
-
+    <EditRestaurantForm restaurant={restaurant} setRestaurant={setRestaurant}/>
+    </>
+    : 
+    <p>No restaurant</p>
+    }
+    
     </> );
 }
 

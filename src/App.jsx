@@ -2,6 +2,7 @@ import { useState, createContext, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 
+import { getRestaurantByOwner } from "./utils/restaurantApi";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RestaurantCreatePage from "./pages/RestaurantCreatePage/RestaurantCreatePage";
 import RestaurantHome from "./pages/RestaurantHome/RestaurantHome";
@@ -12,11 +13,25 @@ import MenuPage from "./pages/MenuPage/MenuPage";
 import userService from "./utils/userService";
 
 export const UserContext = createContext();
-
+export const RestaurantContext = createContext()
 function App() {
   const [user, setUser] = useState(userService.getUser());
-  console.log(user)
+  const[restaurant, setRestaurant] = useState()
 
+useEffect(() => {
+  async function getRestaurant() {
+    if (user.isRestaurantOwner) {
+      const response = await getRestaurantByOwner(user);
+      const data = response.data[0];
+      setRestaurant(data);
+    }
+  }
+  getRestaurant();
+}, []);
+
+function changeRestaurant(data) { 
+  setRestaurant(data)
+}
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
   }
@@ -27,12 +42,13 @@ function App() {
   if (user) {
     return (
       <UserContext.Provider value={user}>
+        <RestaurantContext.Provider value={restaurant}>
         <Routes>
           <Route path="/" element={<Layout logout={handleLogout} />}>
             {user.isRestaurantOwner ? (
               <>
-                <Route index element={<RestaurantHome />} />
-                <Route path="/menu" element={<MenuPage />} />
+                <Route index element={<RestaurantHome setRestaurant={changeRestaurant}/>} />
+                <Route path="/menu/:id" element={<MenuPage />} />
               </>
             ) : (
               <Route index element={<CustomerHome />} />
@@ -49,6 +65,7 @@ function App() {
           <Route path="/signup/restaurant" element={<RestaurantCreatePage />} />
           <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
+        </RestaurantContext.Provider>
       </UserContext.Provider>
     );
   }
