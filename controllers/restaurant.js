@@ -69,7 +69,7 @@ let update = await Restaurant.findByIdAndUpdate(req.params.restaurantId, {
         name: req.body.name, 
         address: req.body.address, 
         description: req.body.description,
-    })
+    }, {new : true})
     res.status(200).json({ data: update });
     } catch (err) { 
         console.log(err)

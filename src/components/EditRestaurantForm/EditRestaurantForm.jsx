@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Header, Form, Segment, Modal } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import { edit } from "../../utils/restaurantApi";
-function EditRestaurantForm({ restaurant }) {
+function EditRestaurantForm({ restaurant, setRestaurant }) {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
     name: "",
@@ -27,11 +27,9 @@ function EditRestaurantForm({ restaurant }) {
         e.preventDefault();
         const update = await edit(restaurant._id, state);
         setOpen(false);
-        setState({
-          name: update.data.name,
-          address: update.data.address,
-          description: update.data.description,
-        });
+        console.log(update.data)
+        setRestaurant(update.data)
+        
     } catch(err) { 
         console.log(err)
     } 

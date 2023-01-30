@@ -16,11 +16,15 @@ function RestaurantHome() {
       }
       getRestaurant();
     }, []);
+
+    function updateRestaurant(data) { 
+        setRestaurant(data)
+    }
     return ( <>
     <h1>{restaurant.name}</h1>
     <p>{restaurant.description}</p>
     <p>{restaurant.address}</p>
-    <EditRestaurantForm restaurant={restaurant}/>
+    <EditRestaurantForm restaurant={restaurant} setRestaurant={updateRestaurant}/>
 
     </> );
 }
