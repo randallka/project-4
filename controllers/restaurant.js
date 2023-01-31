@@ -7,14 +7,10 @@ import { v4 as uuidv4 } from "uuid";
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
 async function addToMenu(restaurantId, item) { 
-    console.log(restaurantId, item)
     try { 
     const restaurant = await Restaurant.findById(restaurantId)
-    console.log(restaurant, "addtomenu restaurant")
-    console.log(item)
     restaurant.menu.push(item._id)
     restaurant.save()
-        console.log(restaurant, "after push ")
     } catch(err){ 
         console.log(err)
     }
@@ -57,7 +53,7 @@ function create(req, res) {
 
 async function findByOwner(req, res) { 
     try{ 
-        const restaurant = await Restaurant.find({ owner: req.params.ownerId });
+        const restaurant = await Restaurant.find({ owner: req.params.ownerId }).populate('menu').exec();
         res.status(200).json({ data: restaurant });
     } catch(err) { 
         console.log(err)

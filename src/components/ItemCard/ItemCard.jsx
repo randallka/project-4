@@ -10,7 +10,7 @@ function ItemCard({cardData}) {
           <Image
             floated="right"
             size="mini"
-            src={cardData.photoUrl}
+            src={cardData.imageUrl}
           />
           <Card.Header>{cardData.name}</Card.Header>
           <Card.Meta>{cardData.price}</Card.Meta>

@@ -5,16 +5,19 @@ import AddItemForm from "../../components/AddItemForm/AddItemForm";
 function MenuPage() {
     const user = useContext(UserContext)
     const restaurant = useContext(RestaurantContext)
-    const [items, setItems] = useState(restaurant?.menu)
-useEffect(() => {
-    console.log("useEffect!")
-    
-}, [])
+    const [items, setItems] = useState([])
+    useEffect(() => { 
+        setItems(restaurant?.menu)
+    }, [restaurant?.menu])
+
 
     
     return ( <div>
         <h1>{restaurant?.name}</h1>
         <h3>Menu</h3>
+        {items?.map((item, i) => {
+            return <ItemCard key={i} cardData={item}/>;
+          })}
         {user._id === restaurant?.owner ? 
         <AddItemForm />
         : 

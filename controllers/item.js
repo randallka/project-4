@@ -19,19 +19,18 @@ function create(req, res) {
     console.log("========================");
     console.log(err, " err from aws");
     console.log("========================");
+    console.log(data.Location)
     if (err)
       return res.status(400).json({ err: "Check terminal error from aws" });
 
     try {
-        console.log(req.body, "req.body")
       const item = await Item.create({
         name: req.body.name,
         restaurant: req.body.restaurant,
         price: req.body.price,
         description: req.body.description,
-        logoUrl: data.Location,
+        imageUrl: data.Location,
       });
-      console.log(item)
       await restaurantCtrl.addToMenu(req.body.restaurant, item)
 
 
