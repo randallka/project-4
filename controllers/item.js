@@ -40,4 +40,28 @@ function create(req, res) {
     }
   });
 }
-export default {create};
+async function deleteItem(req, res) { 
+    try { 
+     await Item.findByIdAndDelete(req.params.id)
+     res.json({ data: "item deleted" });
+    } catch(err) { 
+        console.log(err)
+    }
+}
+async function edit(req, res) {
+  try {
+    let update = await Item.findByIdAndUpdate(
+      req.params.id,
+      {
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+      },
+      { new: true }
+    );
+    res.status(200).json({ data: update });
+  } catch (err) {
+    console.log(err);
+  }
+}
+export default {create, deleteItem, edit};

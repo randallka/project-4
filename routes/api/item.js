@@ -5,4 +5,6 @@ import multer from "multer";
 const upload = multer();
 
 router.post("/", upload.single("photo"), itemCtrl.create);
+router.put("/:id", itemCtrl.edit);
+router.delete("/:id", itemCtrl.deleteItem)
 export default router;

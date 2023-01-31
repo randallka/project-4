@@ -25,6 +25,7 @@ function AddItemForm() {
   }
  async function handleSubmit(e){
 	e.preventDefault(); 
+    setOpen(false)
 const formData = new FormData();
 formData.append("photo", photo);
 for (let key in state) {

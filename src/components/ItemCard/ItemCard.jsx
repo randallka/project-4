@@ -1,9 +1,15 @@
 import { Card, Button, Image } from 'semantic-ui-react'
 import { useContext } from 'react';
 import { UserContext, RestaurantContext } from '../../App';
+import { deleteItem } from '../../utils/itemApi';
+import EditItemForm from '../EditItemForm/EditItemForm';
 function ItemCard({cardData}) {
     const user = useContext(UserContext)
     const restaurant = useContext(RestaurantContext)
+
+    function deleteCardItem() { 
+        deleteItem(cardData?._id)
+    }
     return (
       <Card>
         <Card.Content>
@@ -21,10 +27,8 @@ function ItemCard({cardData}) {
         {user._id === restaurant?.owner ? 
         <Card.Content extra>
           <div className="ui two buttons">
-            <Button basic color="green">
-              Edit Item
-            </Button>
-            <Button basic color="red">
+            <EditItemForm item={cardData} />
+            <Button basic color="red" onClick={deleteCardItem}>
               Delete Item
             </Button>
           </div>
