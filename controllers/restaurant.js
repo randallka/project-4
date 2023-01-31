@@ -1,13 +1,26 @@
 import Restaurant from "../models/restaurant.js";
+import Item from "../models/item.js";
 import S3 from "aws-sdk/clients/s3.js";
 const s3 = new S3(); 
 import { v4 as uuidv4 } from "uuid";
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
+async function addToMenu(restaurantId, item) { 
+    console.log(restaurantId, item)
+    try { 
+    const restaurant = await Restaurant.findById(restaurantId)
+    console.log(restaurant, "addtomenu restaurant")
+    console.log(item)
+    restaurant.menu.push(item._id)
+    restaurant.save()
+        console.log(restaurant, "after push ")
+    } catch(err){ 
+        console.log(err)
+    }
 
+}
 function create(req, res) {
-  console.log(req.user, " <- req.user", req.body, req.file);
 
   if (!req.file) return res.status(400).json({ err: "No file was submitted" });
 
@@ -44,18 +57,15 @@ function create(req, res) {
 
 async function findByOwner(req, res) { 
     try{ 
-        console.log(req.params, "req.params");
         const restaurant = await Restaurant.find({ owner: req.params.ownerId });
-        console.log(restaurant);
         res.status(200).json({ data: restaurant });
     } catch(err) { 
-        console.log(err, "error in findByOner controller function")
+        console.log(err)
     }
 }
 async function index(req, res) {
  try {
-   const restaurants = await Restaurant.find({}).exec();
-   console.log(restaurants) 
+   const restaurants = await Restaurant.find({}).exec(); 
    res.status(200).json({ data: restaurants });
  } catch (err) {
    res.status(400).json({ err });
@@ -63,8 +73,6 @@ async function index(req, res) {
 }
 
 async function edit(req, res) {
-    console.log(req.params) 
-    console.log(req.body)
     try{ 
 let update = await Restaurant.findByIdAndUpdate(req.params.restaurantId, { 
         name: req.body.name, 
@@ -84,5 +92,6 @@ export default {
   create,
   index,
   findByOwner, 
-  edit
+  edit, 
+  addToMenu
 };

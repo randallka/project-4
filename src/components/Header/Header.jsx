@@ -7,10 +7,10 @@ import {
   Menu,
 } from "semantic-ui-react";
 import { useContext } from "react";
-import { UserContext } from "../../App";
-
+import { UserContext, RestaurantContext } from "../../App";
 function PageHeader({logout}) {
     const user = useContext(UserContext)
+    const restaurant = useContext(RestaurantContext)
   return (
     <Menu inverted>
       <Container>
@@ -30,11 +30,11 @@ function PageHeader({logout}) {
 
         <Dropdown item simple text="Dropdown">
           <Dropdown.Menu>
-            {user.isRestaurantOwner ? 
+            {user?.isRestaurantOwner ? 
             <>
             <Dropdown.Item as={Link} to='/'>Restaurant Info</Dropdown.Item>
             
-            <Dropdown.Item as={Link} to={`/menu/`}>Menu</Dropdown.Item>
+            <Dropdown.Item as={Link} to={`/menu/${restaurant?._id}`}>Menu</Dropdown.Item>
             
             <Dropdown.Item>Orders</Dropdown.Item>
             </>

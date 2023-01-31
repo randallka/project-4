@@ -1,4 +1,8 @@
 import express from "express";
 const router = express.Router();
-import itemCtrl from "../../controllers/item";
+import itemCtrl from "../../controllers/item.js";
+import multer from "multer";
+const upload = multer();
+
+router.post("/", upload.single("photo"), itemCtrl.create);
 export default router;

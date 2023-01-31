@@ -10,7 +10,7 @@ function EditMenuForm({ restaurant, setRestaurant }) {
     <Modal
       closeIcon
       open={open}
-      trigger={<Button>Edit Info</Button>}
+      trigger={<Button>Edit Menu</Button>}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
     >
