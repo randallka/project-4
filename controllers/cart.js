@@ -35,9 +35,24 @@ async function addToCart(req, res) {
     res.status(201).json({ endCart });
     } catch(err) { 
         console.log(err)
-    }
-    
-    
+    }   
 }
 
-export default {addToCart, getCart};
+async function removeItem(req, res) { 
+    try { 
+        const cart = await findUserCart(req.user._id)
+        const index = cart.items.indexOf(req.params.id)
+        cart.items.splice(index, 1)
+        // const index = cart.items
+        //   .map(function (x) {
+        //     return x.id;
+        //   })
+        //   .indexOf(req.params.id);
+        // cart.items.splice(index, 1)
+        cart.save()
+    } catch(err) { 
+        console.log(err)
+    }
+}
+
+export default {addToCart, getCart, removeItem};

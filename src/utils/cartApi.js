@@ -16,6 +16,20 @@ export function getCart(userId) {
   });
 }
 
+export function removeItem(itemId) { 
+    return fetch(`${BASE_URL}${itemId}`, {
+    method: "PUT",
+    headers: {
+      Authorization: "Bearer " + tokenService.getToken(),
+    },
+  }).then((response) => {
+    if (response.ok) return response.json();
+    return response.json().then((res) => {
+      console.log(res, " <- this is the response in removeitem");
+      throw new Error("Something went wrong in removeItem");
+    });
+  });
+}
 
 
 export function addToCart(itemId) { 

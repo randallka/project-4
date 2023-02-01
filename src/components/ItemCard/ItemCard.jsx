@@ -6,7 +6,7 @@ import EditItemForm from "../EditItemForm/EditItemForm";
 
 import { deleteItem } from "../../utils/itemApi";
 
-function ItemCard({ cardData }) {
+function ItemCard({ cardData, inCart, removeFromCart }) {
   const user = useContext(UserContext);
   const restaurant = useContext(RestaurantContext);
 
@@ -14,14 +14,15 @@ function ItemCard({ cardData }) {
     deleteItem(cardData?._id);
   }
   async function addItemToCart() {
-    
-    try { 
-        console.log(cardData._id)
-        addToCart(cardData?._id)
-    } catch(err) { 
-        console.log(err)
+    try {
+      console.log(cardData._id);
+      addToCart(cardData?._id);
+    } catch (err) {
+      console.log(err);
     }
-
+  }
+  function removeItem() { 
+    removeFromCart(cardData?._id)
   }
   return (
     <Card>
@@ -43,9 +44,15 @@ function ItemCard({ cardData }) {
       ) : (
         <Card.Content extra>
           <div className="ui one buttons">
-            <Button basic color="green" onClick={addItemToCart}>
-              Add to cart
-            </Button>
+            {inCart ? (
+              <Button basic color="red" onClick={removeItem}>
+                remove from cart
+              </Button>
+            ) : (
+              <Button basic color="green" onClick={addItemToCart}>
+                Add to cart
+              </Button>
+            )}
           </div>
         </Card.Content>
       )}

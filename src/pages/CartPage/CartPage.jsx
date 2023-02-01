@@ -1,7 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router";
 import UserContext from "../../App";
-import { getCart } from "../../utils/cartApi";
+import { getCart, removeItem } from "../../utils/cartApi";
 import ItemCard from "../../components/ItemCard/ItemCard";
 function Cartpage() {
   const { id } = useParams();
@@ -24,7 +24,8 @@ function Cartpage() {
 
   async function removeItemFromCart(id) {
     try {
-      //await cartApi.removeItem
+      await removeItem(id)
+      console.log("success")
     } catch (err) {
       console.log(err);
     }
@@ -34,7 +35,14 @@ function Cartpage() {
     <div>
       <h1>Cart items: </h1>
       {cart?.map((item, i) => {
-        return <ItemCard key={i} cardData={item} />;
+        return (
+          <ItemCard
+            key={i}
+            cardData={item}
+            inCart={true}
+            removeFromCart={removeItemFromCart}
+          />
+        );
       })}
     </div>
   );
