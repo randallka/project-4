@@ -16,11 +16,7 @@ function PageHeader({logout}) {
       <Container>
         <Link to="/">
           <Menu.Item header>
-            <Image
-              size="mini"
-              src=""
-              style={{ marginRight: "1.5em" }}
-            />
+            <Image size="mini" src="" style={{ marginRight: "1.5em" }} />
             Project Name
           </Menu.Item>
         </Link>
@@ -30,19 +26,28 @@ function PageHeader({logout}) {
 
         <Dropdown item simple text="Dropdown">
           <Dropdown.Menu>
-            {user?.isRestaurantOwner ? 
-            <>
-            <Dropdown.Item as={Link} to='/'>Restaurant Info</Dropdown.Item>
-            
-            <Dropdown.Item as={Link} to={`/menu/${restaurant?._id}`}>Menu</Dropdown.Item>
-            
-            <Dropdown.Item>Orders</Dropdown.Item>
-            </>
-            : 
-            <>
-            <Dropdown.Item>Orders</Dropdown.Item>
-            <Dropdown.Item>Profile</Dropdown.Item>
-            </>}
+            {user?.isRestaurantOwner ? (
+              <>
+                <Dropdown.Item as={Link} to="/">
+                  Restaurant Info
+                </Dropdown.Item>
+
+                <Dropdown.Item as={Link} to={`/menu/${restaurant?._id}`}>
+                  Menu
+                </Dropdown.Item>
+
+                <Dropdown.Item>Orders</Dropdown.Item>
+              </>
+            ) : (
+              <>
+                <Dropdown.Item as={Link} to={`/orders/${user?._id}`}>
+                  Orders
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to={`/cart/${user?._id}`}>
+                  Cart
+                </Dropdown.Item>
+              </>
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </Container>

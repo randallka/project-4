@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 
 import { getRestaurantByOwner } from "./utils/restaurantApi";
+import RestaurantPage from "./pages/RestaurantPage/RestaurantPgae";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RestaurantCreatePage from "./pages/RestaurantCreatePage/RestaurantCreatePage";
 import RestaurantHome from "./pages/RestaurantHome/RestaurantHome";
@@ -11,6 +12,7 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import Layout from "./pages/Layout/Layout";
 import MenuPage from "./pages/MenuPage/MenuPage";
 import userService from "./utils/userService";
+import CartPage from './pages/CartPage/CartPage'
 
 export const UserContext = createContext();
 export const RestaurantContext = createContext()
@@ -43,28 +45,40 @@ function changeRestaurant(data) {
     return (
       <UserContext.Provider value={user}>
         <RestaurantContext.Provider value={restaurant}>
-        <Routes>
-          <Route path="/" element={<Layout logout={handleLogout} />}>
-            {user.isRestaurantOwner ? (
-              <>
-                <Route index element={<RestaurantHome setRestaurant={changeRestaurant}/>} />
-                <Route path="/menu/:id" element={<MenuPage />} />
-              </>
-            ) : (
-              <Route index element={<CustomerHome />} />
-            )}
-          </Route>
-          <Route
-            path="/login"
-            element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-          />
-          <Route
-            path="/signup"
-            element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-          />
-          <Route path="/signup/restaurant" element={<RestaurantCreatePage />} />
-          <Route path="/*" element={<Navigate to="/login" />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Layout logout={handleLogout} />}>
+              {user.isRestaurantOwner ? (
+                <>
+                  <Route
+                    index
+                    element={
+                      <RestaurantHome setRestaurant={changeRestaurant} />
+                    }
+                  />
+                  <Route path="/menu/:id" element={<MenuPage />} />
+                </>
+              ) : (
+                <>
+                  <Route index element={<CustomerHome />} />
+                  <Route path="/restaurant/:id" element={<RestaurantPage />} />
+                  <Route path="/cart/:id" element={<CartPage />} />
+                </>
+              )}
+            </Route>
+            <Route
+              path="/login"
+              element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+            />
+            <Route
+              path="/signup"
+              element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+            />
+            <Route
+              path="/signup/restaurant"
+              element={<RestaurantCreatePage />}
+            />
+            <Route path="/*" element={<Navigate to="/login" />} />
+          </Routes>
         </RestaurantContext.Provider>
       </UserContext.Provider>
     );

@@ -3,14 +3,12 @@ import tokenService from './tokenService';
 const BASE_URL = '/api/users/';
 
 function signup(user) {
-  console.log(user, "userService")
   return fetch(BASE_URL + 'signup', {
     method: 'POST',
     headers: new Headers({'Content-Type': 'application/json'}),  
     body: JSON.stringify(user)
   })
   .then(res => {
-    console.log(res, "userService res")
     if (res.ok) return res.json();
     throw new Error('Error in userService signup');
   })

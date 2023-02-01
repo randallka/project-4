@@ -23,7 +23,6 @@ function SignUpPage({ handleSignUpOrLogin }) {
 
   async function handleSubmit(e) {
     e.preventDefault(); 
-    console.log(state, "state")
 if (state.password === state.passwordConf) { 
     try {
         

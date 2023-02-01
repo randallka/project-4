@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
 function create(req, res) {
-  console.log(req.user, " <- req.user", req.body, req.file);
 
   if (!req.file) return res.status(400).json({ err: "No file was submitted" });
 
@@ -16,10 +15,7 @@ function create(req, res) {
   const params = { Bucket: BUCKET_NAME, Key: key, Body: req.file.buffer };
 
   s3.upload(params, async function (err, data) {
-    console.log("========================");
     console.log(err, " err from aws");
-    console.log("========================");
-    console.log(data.Location)
     if (err)
       return res.status(400).json({ err: "Check terminal error from aws" });
 

@@ -25,9 +25,7 @@ function create(req, res) {
   const params = { Bucket: BUCKET_NAME, Key: key, Body: req.file.buffer };
  
   s3.upload(params, async function (err, data) {
-    console.log("========================");
     console.log(err, " err from aws");
-    console.log("========================");
     if (err)
       return res.status(400).json({ err: "Check terminal error from aws" });
 
@@ -61,7 +59,7 @@ async function findByOwner(req, res) {
 }
 async function index(req, res) {
  try {
-   const restaurants = await Restaurant.find({}).exec(); 
+   const restaurants = await Restaurant.find({}).populate('menu').exec(); 
    res.status(200).json({ data: restaurants });
  } catch (err) {
    res.status(400).json({ err });
@@ -83,11 +81,19 @@ let update = await Restaurant.findByIdAndUpdate(req.params.restaurantId, {
     
 }
 
-
+async function getOne(req, res) { 
+    try { 
+        let restaurant = await Restaurant.findById(req.params.restaurantId).populate('menu').exec()
+        res.status(200).json({ data: restaurant });
+    }catch(err) { 
+        console.log(err)
+    }
+}
 export default {
   create,
   index,
   findByOwner, 
   edit, 
-  addToMenu
+  addToMenu, 
+  getOne,
 };

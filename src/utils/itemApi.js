@@ -23,7 +23,6 @@ export function create(data) {
 }
 
 export function edit(id, data) {
-  console.log(data, "edit ");
   return fetch(`${BASE_URL}/${id}`, {
     method: "PUT",
     body: JSON.stringify(data),
@@ -32,7 +31,6 @@ export function edit(id, data) {
       "Content-Type": "application/json",
     },
   }).then((response) => {
-    console.log(response);
     if (response.ok) return response.json();
     return response.json().then((res) => {
       console.log(res, " <- this is the response in item edit");

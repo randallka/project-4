@@ -31,7 +31,6 @@ formData.append("photo", photo);
 for (let key in state) {
   formData.append(key, state[key]);
 }
-console.log(formData.forEach((item) => console.log(item)));
 try {
   await create(formData);
 } catch (err) {

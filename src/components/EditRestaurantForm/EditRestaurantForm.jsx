@@ -27,7 +27,6 @@ function EditRestaurantForm({ restaurant, setRestaurant }) {
         e.preventDefault();
         const update = await edit(restaurant._id, state);
         setOpen(false);
-        console.log(update.data)
         setRestaurant(update.data)
         
     } catch(err) { 
