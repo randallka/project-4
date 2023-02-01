@@ -25,6 +25,7 @@ function create(req, res) {
         description: req.body.description,
         imageUrl: data.Location,
       });
+      console.log(item)
       await restaurantCtrl.addToMenu(req.body.restaurant, item);
       res.status(201).json({ item });
     } catch (err) {

@@ -43,12 +43,6 @@ async function removeItem(req, res) {
         const cart = await findUserCart(req.user._id)
         const index = cart.items.indexOf(req.params.id)
         cart.items.splice(index, 1)
-        // const index = cart.items
-        //   .map(function (x) {
-        //     return x.id;
-        //   })
-        //   .indexOf(req.params.id);
-        // cart.items.splice(index, 1)
         cart.save()
     } catch(err) { 
         console.log(err)
