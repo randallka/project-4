@@ -1,7 +1,9 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext, RestaurantContext } from "../../App";
-import ItemCard from "../../components/ItemCard/ItemCard";
+
 import AddItemForm from "../../components/AddItemForm/AddItemForm";
+import ItemCard from "../../components/ItemCard/ItemCard";
+
 function MenuPage() {
     const user = useContext(UserContext)
     const restaurant = useContext(RestaurantContext)
@@ -9,8 +11,6 @@ function MenuPage() {
     useEffect(() => { 
         setItems(restaurant?.menu)
     }, [restaurant?.menu])
-
-
     
     return ( <div>
         <h1>{restaurant?.name}</h1>

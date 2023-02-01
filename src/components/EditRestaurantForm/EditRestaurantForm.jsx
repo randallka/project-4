@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Header, Form, Segment, Modal } from "semantic-ui-react";
 import { useState, useEffect } from "react";
+
 import { edit } from "../../utils/restaurantApi";
+
 function EditRestaurantForm({ restaurant, setRestaurant }) {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
@@ -15,7 +17,8 @@ function EditRestaurantForm({ restaurant, setRestaurant }) {
       name: restaurant.name,
       address: restaurant.address,
       description: restaurant.description,
-    });}, [restaurant])
+    });
+  }, [restaurant]);
   function handleChange(e) {
     setState({
       ...state,
@@ -23,15 +26,14 @@ function EditRestaurantForm({ restaurant, setRestaurant }) {
     });
   }
   async function handleSubmit(e) {
-    try { 
-        e.preventDefault();
-        const update = await edit(restaurant._id, state);
-        setOpen(false);
-        setRestaurant(update.data)
-        
-    } catch(err) { 
-        console.log(err)
-    } 
+    try {
+      e.preventDefault();
+      const update = await edit(restaurant._id, state);
+      setOpen(false);
+      setRestaurant(update.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
   return (
     <Modal

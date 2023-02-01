@@ -1,4 +1,11 @@
-import { Button, Form, Grid, Header, Checkbox, Segment } from "semantic-ui-react";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Checkbox,
+  Segment,
+} from "semantic-ui-react";
 import { useState } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
@@ -22,32 +29,31 @@ function SignUpPage({ handleSignUpOrLogin }) {
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
-    e.preventDefault(); 
-if (state.password === state.passwordConf) { 
-    try {
-        
-      await userService.signup(state); 
-      handleSignUpOrLogin();
-      if (state.isRestaurantOwner) { 
-        navigate('/signup/restaurant')
-      } else { 
-        navigate("/");
+    e.preventDefault();
+    if (state.password === state.passwordConf) {
+      try {
+        await userService.signup(state);
+        handleSignUpOrLogin();
+        if (state.isRestaurantOwner) {
+          navigate("/signup/restaurant");
+        } else {
+          navigate("/");
+        }
+      } catch (err) {
+        console.log(err.message, "this is the error in signup");
+        setError("Error signing up, please try again");
       }
-    } catch (err) {
-      console.log(err.message, "this is the error in signup");
-      setError("Error signing up, please try again");
+    } else {
+      setError("Please make sure your passwords match");
     }
-  }else { 
-    setError("Please make sure your passwords match")
-} 
-}
+  }
   function handleChange(e) {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
   }
-  function handleCheck(e) { 
+  function handleCheck(e) {
     setState({
       ...state,
       isRestaurantOwner: !state.isRestaurantOwner,

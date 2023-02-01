@@ -1,6 +1,5 @@
 import Item from "../models/item.js";
-import Restaurant from "../models/restaurant.js";
-import restaurantCtrl from './restaurant.js'
+import restaurantCtrl from "./restaurant.js";
 import S3 from "aws-sdk/clients/s3.js";
 const s3 = new S3();
 import { v4 as uuidv4 } from "uuid";
@@ -8,7 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
 function create(req, res) {
-
   if (!req.file) return res.status(400).json({ err: "No file was submitted" });
 
   const key = `project-4/items/${uuidv4()}-${req.file.originalname}`;
@@ -27,23 +25,23 @@ function create(req, res) {
         description: req.body.description,
         imageUrl: data.Location,
       });
-      await restaurantCtrl.addToMenu(req.body.restaurant, item)
-
-
+      await restaurantCtrl.addToMenu(req.body.restaurant, item);
       res.status(201).json({ item });
     } catch (err) {
       res.status(400).json({ err });
     }
   });
 }
-async function deleteItem(req, res) { 
-    try { 
-     await Item.findByIdAndDelete(req.params.id)
-     res.json({ data: "item deleted" });
-    } catch(err) { 
-        console.log(err)
-    }
+
+async function deleteItem(req, res) {
+  try {
+    await Item.findByIdAndDelete(req.params.id);
+    res.json({ data: "item deleted" });
+  } catch (err) {
+    console.log(err);
+  }
 }
+
 async function edit(req, res) {
   try {
     let update = await Item.findByIdAndUpdate(
@@ -60,4 +58,5 @@ async function edit(req, res) {
     console.log(err);
   }
 }
-export default {create, deleteItem, edit};
+
+export default { create, deleteItem, edit };

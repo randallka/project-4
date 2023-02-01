@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const restaurantSchema = new mongoose.Schema({
-  name: { type: String, required: true},
+  name: { type: String, required: true },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   address: { type: String, required: true, unique: true },
   logoUrl: String,

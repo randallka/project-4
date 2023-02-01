@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Header, Form, Segment, Modal } from "semantic-ui-react";
 import { useState, useEffect } from "react";
+
 import { edit } from "../../utils/itemApi";
+
 function EditItemForm({ item, setItem }) {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
@@ -28,7 +30,6 @@ function EditItemForm({ item, setItem }) {
       e.preventDefault();
       const update = await edit(item?._id, state);
       setOpen(false);
-      
     } catch (err) {
       console.log(err);
     }

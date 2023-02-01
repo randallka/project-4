@@ -1,39 +1,43 @@
-import { useState, createContext, useEffect } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 
-import { getRestaurantByOwner } from "./utils/restaurantApi";
-import RestaurantPage from "./pages/RestaurantPage/RestaurantPgae";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import RestaurantCreatePage from "./pages/RestaurantCreatePage/RestaurantCreatePage";
+import { useState, createContext, useEffect } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+
+import Layout from "./pages/Layout/Layout";
 import RestaurantHome from "./pages/RestaurantHome/RestaurantHome";
 import CustomerHome from "./pages/CustomerHome/CustomerHome";
 import SignupPage from "./pages/SignupPage/SignupPage";
-import Layout from "./pages/Layout/Layout";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RestaurantCreatePage from "./pages/RestaurantCreatePage/RestaurantCreatePage";
+import RestaurantPage from "./pages/RestaurantPage/RestaurantPgae";
 import MenuPage from "./pages/MenuPage/MenuPage";
+import CartPage from "./pages/CartPage/CartPage";
+
+import { getRestaurantByOwner } from "./utils/restaurantApi";
 import userService from "./utils/userService";
-import CartPage from './pages/CartPage/CartPage'
 
 export const UserContext = createContext();
-export const RestaurantContext = createContext()
+export const RestaurantContext = createContext();
+
 function App() {
   const [user, setUser] = useState(userService.getUser());
-  const[restaurant, setRestaurant] = useState()
+  const [restaurant, setRestaurant] = useState();
 
-useEffect(() => {
-  async function getRestaurant() {
-    if (user.isRestaurantOwner) {
-      const response = await getRestaurantByOwner(user);
-      const data = response.data[0];
-      setRestaurant(data);
+  useEffect(() => {
+    async function getRestaurant() {
+      if (user.isRestaurantOwner) {
+        const response = await getRestaurantByOwner(user);
+        const data = response.data[0];
+        setRestaurant(data);
+      }
     }
-  }
-  getRestaurant();
-}, []);
+    getRestaurant();
+  }, []);
 
-function changeRestaurant(data) { 
-  setRestaurant(data)
-}
+  function changeRestaurant(data) {
+    // possibly refactor? store restaurant in component state for re-rendering
+    setRestaurant(data);
+  }
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
   }

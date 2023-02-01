@@ -1,8 +1,4 @@
-import React, { useState } from "react";
 import "./LoginPage.css";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import userService from "../../utils/userService";
-import { useNavigate, Link } from "react-router-dom";
 import {
   Button,
   Form,
@@ -11,6 +7,13 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
+import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+
+import userService from "../../utils/userService";
+
 
 export default function LoginPage(props) {
   const [error, setError] = useState("");

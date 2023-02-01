@@ -1,10 +1,13 @@
 import React from "react";
 import { Button, Header, Form, Segment, Modal } from "semantic-ui-react";
-import { useState, useEffect, useContext } from "react";
-import { create } from "../../utils/itemApi";
+import { useState, useContext } from "react";
+
 import { RestaurantContext } from "../../App";
+
+import { create } from "../../utils/itemApi";
+
 function AddItemForm() {
-    const restaurant = useContext(RestaurantContext)
+  const restaurant = useContext(RestaurantContext);
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
     name: "",
@@ -12,7 +15,7 @@ function AddItemForm() {
     price: "",
     description: "",
   });
-  const [photo, setPhoto] = useState()
+  const [photo, setPhoto] = useState();
 
   function handleFileInput(e) {
     setPhoto(e.target.files[0]);
@@ -23,20 +26,20 @@ function AddItemForm() {
       [e.target.name]: e.target.value,
     });
   }
- async function handleSubmit(e){
-	e.preventDefault(); 
-    setOpen(false)
-const formData = new FormData();
-formData.append("photo", photo);
-for (let key in state) {
-  formData.append(key, state[key]);
-}
-try {
-  await create(formData);
-} catch (err) {
-  console.log(err)
-}
-}
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setOpen(false);
+    const formData = new FormData();
+    formData.append("photo", photo);
+    for (let key in state) {
+      formData.append(key, state[key]);
+    }
+    try {
+      await create(formData);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <Modal
       closeIcon
@@ -63,7 +66,7 @@ try {
               onChange={handleChange}
               required
             />
-    
+
             <Form.TextArea
               label="Description"
               name="description"

@@ -1,16 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Container,
-  Dropdown,
-  Image,
-  Menu,
-} from "semantic-ui-react";
+import { Container, Dropdown, Image, Menu } from "semantic-ui-react";
 import { useContext } from "react";
+
 import { UserContext, RestaurantContext } from "../../App";
-function PageHeader({logout}) {
-    const user = useContext(UserContext)
-    const restaurant = useContext(RestaurantContext)
+
+function PageHeader({ logout }) {
+  const user = useContext(UserContext);
+  const restaurant = useContext(RestaurantContext);
   return (
     <Menu inverted>
       <Container>
@@ -23,7 +20,6 @@ function PageHeader({logout}) {
         <Menu.Item as="a" onClick={logout}>
           Logout
         </Menu.Item>
-
         <Dropdown item simple text="Dropdown">
           <Dropdown.Menu>
             {user?.isRestaurantOwner ? (
@@ -31,11 +27,9 @@ function PageHeader({logout}) {
                 <Dropdown.Item as={Link} to="/">
                   Restaurant Info
                 </Dropdown.Item>
-
                 <Dropdown.Item as={Link} to={`/menu/${restaurant?._id}`}>
                   Menu
                 </Dropdown.Item>
-
                 <Dropdown.Item>Orders</Dropdown.Item>
               </>
             ) : (

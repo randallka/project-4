@@ -1,13 +1,14 @@
-import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
+import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
 import { useState, useContext } from "react";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
-import {create} from "../../utils/restaurantApi"
-function RestaurantCreatePage() {
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
-const user = useContext(UserContext);
+import { create } from "../../utils/restaurantApi";
+
+function RestaurantCreatePage() {
+  const user = useContext(UserContext);
   const [state, setState] = useState({
     name: "",
     address: "",
@@ -15,13 +16,12 @@ const user = useContext(UserContext);
   });
 
   const [selectedFile, setSelectedFile] = useState("");
-
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     const formData = new FormData();
     formData.append("photo", selectedFile);
 
@@ -29,7 +29,7 @@ const user = useContext(UserContext);
       formData.append(key, state[key]);
     }
     try {
-      await create(formData); 
+      await create(formData);
       navigate("/");
     } catch (err) {
       console.log(err.message, " this is the error in restaurant create page");
