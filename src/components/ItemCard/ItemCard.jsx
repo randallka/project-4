@@ -1,7 +1,7 @@
 import { Card, Button, Image } from "semantic-ui-react";
 import { useContext } from "react";
 import { UserContext, RestaurantContext } from "../../App";
-
+import { addToCart } from "../../utils/cartApi";
 import EditItemForm from "../EditItemForm/EditItemForm";
 
 import { deleteItem } from "../../utils/itemApi";
@@ -13,8 +13,15 @@ function ItemCard({ cardData }) {
   function deleteCardItem() {
     deleteItem(cardData?._id);
   }
-  function addItemToCart() {
-    console.log("add to cart will go here");
+  async function addItemToCart() {
+    
+    try { 
+        console.log(cardData._id)
+        addToCart(cardData?._id)
+    } catch(err) { 
+        console.log(err)
+    }
+
   }
   return (
     <Card>

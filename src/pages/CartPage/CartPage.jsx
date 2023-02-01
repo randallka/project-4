@@ -1,27 +1,25 @@
 import { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router";
 import UserContext from "../../App";
+import { getCart } from "../../utils/cartApi";
+import ItemCard from "../../components/ItemCard/ItemCard";
 function Cartpage() {
-  const user = useContext(UserContext);
-  const [cart, setcart] = useState([]);
-  const [cartinfo, setCartInfo] = useState({
-    total: "", 
-    itemCount: "",
-  })
+  const { id } = useParams();
+  const [cart, setCart] = useState();
+  const [cartInfo, setCartInfo] = useState({
+    total: 0,
+    itemCount: 0,
+  });
   useEffect(() => {
-    async function getCart() {
+    async function getUserCart() {
       try {
-        //const cart = await cartApi.getcart(user._id)
-        //setCart(cart.items)
+        const foundCart = await getCart(id);
+        setCart(foundCart.cart.items);
       } catch (err) {
         console.log(err);
       }
     }
-    getCart()
-    // const cartTotal = cart.map(item => item?.price).reduce((prev, next) => prev + next)
-    // setcart({ 
-    //     ...cart,
-    //     total: cartTotal,
-    // })
+    getUserCart();
   }, []);
 
   async function removeItemFromCart(id) {
@@ -32,8 +30,15 @@ function Cartpage() {
     }
   }
 
-  return <div>Customer cart</div>;
-  //show items with a delete button 
+  return (
+    <div>
+      <h1>Cart items: </h1>
+      {cart?.map((item, i) => {
+        return <ItemCard key={i} cardData={item} />;
+      })}
+    </div>
+  );
+  //show items with a delete button
 }
 
 export default Cartpage;
