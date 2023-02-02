@@ -1,7 +1,8 @@
 import Item from "../models/item.js";
 import restaurantCtrl from "./restaurant.js";
-import S3 from "aws-sdk/clients/s3.js";
-const s3 = new S3();
+import {s3} from '../config/s3-config.js'
+// import S3 from "aws-sdk/clients/s3.js";
+// const s3 = new S3();
 import { v4 as uuidv4 } from "uuid";
 
 const BUCKET_NAME = process.env.BUCKET_NAME;

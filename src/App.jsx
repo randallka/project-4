@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     async function getRestaurant() {
-      if (user.isRestaurantOwner) {
+      if (user?.isRestaurantOwner) {
         const response = await getRestaurantByOwner(user);
         const data = response.data[0];
         setRestaurant(data);
