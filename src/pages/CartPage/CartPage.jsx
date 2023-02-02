@@ -1,15 +1,16 @@
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router";
 import { UserContext } from "../../App";
-import { getCart, removeItem } from "../../utils/cartApi";
+import { getCart, removeItem, emptyCart } from "../../utils/cartApi";
 import { placeOrder } from "../../utils/orderApi";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import { PlaceholderHeader } from "semantic-ui-react";
 
 //need to update component when items are added/removed- right now it takes a refresh
 function Cartpage() {
   const user = useContext(UserContext);
   const { id } = useParams();
-  const [cart, setCart] = useState();
+  const [cart, setCart] = useState({});
   const [cartInfo, setCartInfo] = useState({
     total: 0,
     itemCount: 0,
@@ -18,7 +19,7 @@ function Cartpage() {
     async function getUserCart() {
       try {
         const foundCart = await getCart(id);
-        setCart(foundCart.cart.items);
+        setCart(foundCart.cart);
       } catch (err) {
         console.log(err);
       }
@@ -37,10 +38,10 @@ function Cartpage() {
   async function makeOrder() {
     try {
         console.log(user)
-      console.log(cart, "cart");
       function formatOrder() {
+        const orders = []
         const keys = [];
-        cart.forEach((item) => {
+        cart.items.forEach((item) => {
           if (keys.includes(item.restaurant)) {
           } else {
             keys.push(item.restaurant);
@@ -48,15 +49,12 @@ function Cartpage() {
           }
         });
         keys.forEach((key) => {
-          console.log(key);
           const restaurantItems = [];
-          cart.forEach((item) => {
-            console.log(item._id);
+          cart.items.forEach((item) => {
             if (item.restaurant === key) {
               restaurantItems.push(item._id);
             }
           });
-          console.log(restaurantItems, "restaurant Items");
           const orderObj = {
             customer: user._id,
             items: restaurantItems,
@@ -65,9 +63,17 @@ function Cartpage() {
             address: user.address,
           };
           console.log(orderObj, "order object");
+          orders.push(orderObj) 
         });
+        return orders
       }
-      formatOrder();
+      const orders = formatOrder()
+      orders.forEach((order) => { 
+        console.log(order)
+        placeOrder(order)
+        emptyCart(cart._id)
+      })
+      
     } catch (err) {
       // go through cart items and group them by restaurant
       // await placeOrder()
@@ -78,7 +84,7 @@ function Cartpage() {
   return (
     <div>
       <h1>Cart items: </h1>
-      {cart?.map((item, i) => {
+      {cart?.items?.map((item, i) => {
         return (
           <ItemCard
             key={i}

@@ -49,3 +49,20 @@ export function addToCart(itemId) {
     });
   });
 }
+
+export function emptyCart(id) { 
+    console.log("empty cart", id)
+    return fetch(`${BASE_URL}${id}/empty`, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + tokenService.getToken(),
+      },
+    }).then((response) => {
+      if (response.ok) return response.json();
+      return response.json().then((res) => {
+        console.log(res, " <- this is the response in empty cart");
+        throw new Error("Something went wrong in empty cart");
+      });
+    });
+
+}

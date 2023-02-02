@@ -12,7 +12,7 @@ import RestaurantCreatePage from "./pages/RestaurantCreatePage/RestaurantCreateP
 import RestaurantPage from "./pages/RestaurantPage/RestaurantPgae";
 import MenuPage from "./pages/MenuPage/MenuPage";
 import CartPage from "./pages/CartPage/CartPage";
-
+import OrderPage from "./pages/OrderPage/OrderPage";
 import { getRestaurantByOwner } from "./utils/restaurantApi";
 import userService from "./utils/userService";
 
@@ -66,6 +66,7 @@ function App() {
                   <Route index element={<CustomerHome />} />
                   <Route path="/restaurant/:id" element={<RestaurantPage />} />
                   <Route path="/cart/:id" element={<CartPage />} />
+                  <Route path="/orders/:id" element={<OrderPage />} />
                 </>
               )}
             </Route>

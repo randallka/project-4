@@ -14,8 +14,8 @@ export function placeOrder(data) {
     }).then((response) => {
       if (response.ok) return response.json();
       return response.json().then((res) => {
-        console.log(res, " <- this is the response in item edit");
-        throw new Error("Something went wrong in item edit");
+        console.log(res, " <- this is the response in placeOrder");
+        throw new Error("Something went wrong in place order");
       });
     });
 }

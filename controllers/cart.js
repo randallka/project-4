@@ -49,4 +49,24 @@ async function removeItem(req, res) {
     }
 }
 
-export default {addToCart, getCart, removeItem};
+async function emptyCart(req, res) { 
+    try { 
+        console.log("cartctrl hit")
+        const cart = await Cart.findById(req.params.id)
+        console.log(cart, "before")
+        const empty = []
+        cart.updateOne({items: empty}, function (err, result) { 
+            if (err) { 
+                console.log(err)
+            } else { 
+                console.log(result)
+                cart.save()
+            }
+        })
+        
+        console.log(cart)
+    }catch(err) { 
+        console.log(err)
+    }
+}
+export default {addToCart, getCart, removeItem, emptyCart};
