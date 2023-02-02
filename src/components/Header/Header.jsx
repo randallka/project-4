@@ -30,7 +30,9 @@ function PageHeader({ logout }) {
                 <Dropdown.Item as={Link} to={`/menu/${restaurant?._id}`}>
                   Menu
                 </Dropdown.Item>
-                <Dropdown.Item>Orders</Dropdown.Item>
+                <Dropdown.Item as={Link} to={`/orders/${restaurant?._id}`}>
+                  Orders
+                </Dropdown.Item>
               </>
             ) : (
               <>

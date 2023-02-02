@@ -51,7 +51,7 @@ async function removeItem(req, res) {
 
 async function emptyCart(req, res) { 
     try { 
-        console.log("cartctrl hit")
+        console.log("empty cart hit")
         const cart = await Cart.findById(req.params.id)
         console.log(cart, "before")
         const empty = []
@@ -63,8 +63,8 @@ async function emptyCart(req, res) {
                 cart.save()
             }
         })
-        
-        console.log(cart)
+        const changedCart = await Cart.findById(req.params.id);
+        console.log(changedCart, "empty?")
     }catch(err) { 
         console.log(err)
     }

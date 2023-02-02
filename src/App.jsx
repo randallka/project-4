@@ -60,6 +60,7 @@ function App() {
                     }
                   />
                   <Route path="/menu/:id" element={<MenuPage />} />
+                  <Route path="/orders/:id" element={<OrderPage />} />
                 </>
               ) : (
                 <>

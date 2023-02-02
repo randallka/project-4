@@ -4,7 +4,6 @@ import { UserContext } from "../../App";
 import { getCart, removeItem, emptyCart } from "../../utils/cartApi";
 import { placeOrder } from "../../utils/orderApi";
 import ItemCard from "../../components/ItemCard/ItemCard";
-import { PlaceholderHeader } from "semantic-ui-react";
 
 //need to update component when items are added/removed- right now it takes a refresh
 function Cartpage() {
@@ -37,7 +36,6 @@ function Cartpage() {
 
   async function makeOrder() {
     try {
-        console.log(user)
       function formatOrder() {
         const orders = []
         const keys = [];
@@ -45,7 +43,6 @@ function Cartpage() {
           if (keys.includes(item.restaurant)) {
           } else {
             keys.push(item.restaurant);
-            console.log(keys);
           }
         });
         keys.forEach((key) => {
@@ -62,16 +59,16 @@ function Cartpage() {
             status: false,
             address: user.address,
           };
-          console.log(orderObj, "order object");
           orders.push(orderObj) 
         });
         return orders
       }
       const orders = formatOrder()
       orders.forEach((order) => { 
-        console.log(order)
+        console.log(order, "passed in controller")
         placeOrder(order)
         emptyCart(cart._id)
+        setCart([])
       })
       
     } catch (err) {

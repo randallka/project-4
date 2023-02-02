@@ -19,3 +19,36 @@ export function placeOrder(data) {
       });
     });
 }
+
+export function getUserOrders(userId) { 
+    console.log('getting user orders')
+return fetch(`${BASE_URL}user/${userId}`, {
+  method: "GET",
+  headers: {
+    Authorization: "Bearer " + tokenService.getToken(),
+  },
+}).then((response) => {
+  if (response.ok) return response.json();
+  return response.json().then((res) => {
+    console.log(res, " <- this is the response in getcustomerOrders");
+    throw new Error("Something went wrong in getCustomerOrders");
+  });
+});
+
+}
+export function getRestaurantOrders(restaurantId) {
+    console.log("getting restaurant orders");
+return fetch(`${BASE_URL}restaurant/${restaurantId}`, {
+  method: "GET",
+  headers: {
+    Authorization: "Bearer " + tokenService.getToken(),
+  },
+}).then((response) => {
+  if (response.ok) return response.json();
+  return response.json().then((res) => {
+    console.log(res, " <- this is the response in getrestaurantOrders");
+    throw new Error("Something went wrong in getrestaurantOrders");
+  });
+});
+
+}
