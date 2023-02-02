@@ -11,12 +11,15 @@ import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
 
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Load from "../../components/Loader/Loader";
+
 
 import userService from "../../utils/userService";
 
 
 export default function LoginPage(props) {
   const [error, setError] = useState("");
+  const [load, setLoad] = useState(false);
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -35,6 +38,7 @@ export default function LoginPage(props) {
     e.preventDefault();
 
     try {
+      setLoad(true)
       await userService.login(state);
       props.handleSignUpOrLogin();
       navigate("/");
@@ -42,7 +46,9 @@ export default function LoginPage(props) {
       setError(err.message);
     }
   }
-
+if (load) {
+  return <Load />;
+}
   return (
     <Grid
       textAlign="center"

@@ -1,24 +1,30 @@
 import { useEffect, useContext, useState } from "react";
-import { useParams } from "react-router";
-import { UserContext } from "../../App";
+
 import { getCart, removeItem, emptyCart } from "../../utils/cartApi";
 import { placeOrder } from "../../utils/orderApi";
-import ItemCard from "../../components/ItemCard/ItemCard";
 
+import { UserContext } from "../../App";
+
+import ItemCard from "../../components/ItemCard/ItemCard";
+import Load from "../../components/Loader/Loader";
 //need to update component when items are added/removed- right now it takes a refresh
 function Cartpage() {
   const user = useContext(UserContext);
-  const { id } = useParams();
+
+  const [load, setLoad] = useState(false);
   const [cart, setCart] = useState({});
   const [cartInfo, setCartInfo] = useState({
     total: 0,
     itemCount: 0,
   });
+
   useEffect(() => {
     async function getUserCart() {
       try {
-        const foundCart = await getCart(id);
+        setLoad(true);
+        const foundCart = await getCart(user?._id);
         setCart(foundCart.cart);
+        setLoad(false);
       } catch (err) {
         console.log(err);
       }
@@ -28,7 +34,10 @@ function Cartpage() {
 
   async function removeItemFromCart(id) {
     try {
-      await removeItem(id);
+      setLoad(true);
+      const cart = await removeItem(id);
+      setCart(cart)
+      setLoad(false);
     } catch (err) {
       console.log(err);
     }
@@ -37,7 +46,7 @@ function Cartpage() {
   async function makeOrder() {
     try {
       function formatOrder() {
-        const orders = []
+        const orders = [];
         const keys = [];
         cart.items.forEach((item) => {
           if (keys.includes(item.restaurant)) {
@@ -59,23 +68,26 @@ function Cartpage() {
             status: false,
             address: user.address,
           };
-          orders.push(orderObj) 
+          orders.push(orderObj);
         });
-        return orders
+        return orders;
       }
-      const orders = formatOrder()
-      orders.forEach((order) => { 
-        console.log(order, "passed in controller")
-        placeOrder(order)
-        emptyCart(cart._id)
-        setCart([])
-      })
-      
+      setLoad(true);
+      const orders = formatOrder();
+      orders.forEach((order) => {
+        console.log(order, "passed in controller");
+        placeOrder(order);
+        emptyCart(cart._id);
+        setCart([]);
+      });
+      setLoad(false);
     } catch (err) {
-      // go through cart items and group them by restaurant
-      // await placeOrder()
       console.log(err);
     }
+  }
+
+  if (load) {
+    return <Load />;
   }
 
   return (

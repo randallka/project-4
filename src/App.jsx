@@ -15,20 +15,22 @@ import CartPage from "./pages/CartPage/CartPage";
 import OrderPage from "./pages/OrderPage/OrderPage";
 import { getRestaurantByOwner } from "./utils/restaurantApi";
 import userService from "./utils/userService";
-
+import Load from "./components/Loader/Loader";
 export const UserContext = createContext();
 export const RestaurantContext = createContext();
 
 function App() {
   const [user, setUser] = useState(userService.getUser());
   const [restaurant, setRestaurant] = useState();
-
+  const [load, setLoad] = useState(false)
   useEffect(() => {
     async function getRestaurant() {
       if (user?.isRestaurantOwner) {
+        setLoad(true)
         const response = await getRestaurantByOwner(user);
         const data = response.data[0];
         setRestaurant(data);
+        setLoad(false)
       }
     }
     getRestaurant();
@@ -46,6 +48,9 @@ function App() {
     setUser(null);
   }
   if (user) {
+if (load) { 
+  return (<Load />)
+}
     return (
       <UserContext.Provider value={user}>
         <RestaurantContext.Provider value={restaurant}>

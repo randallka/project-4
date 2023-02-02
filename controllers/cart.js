@@ -44,6 +44,7 @@ async function removeItem(req, res) {
         const index = cart.items.indexOf(req.params.id)
         cart.items.splice(index, 1)
         cart.save()
+        res.status(201).json({ cart });
     } catch(err) { 
         console.log(err)
     }

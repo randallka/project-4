@@ -38,6 +38,7 @@ return fetch(`${BASE_URL}user/${userId}`, {
 }
 export function getRestaurantOrders(restaurantId) {
     console.log("getting restaurant orders");
+    console.log(restaurantId)
 return fetch(`${BASE_URL}restaurant/${restaurantId}`, {
   method: "GET",
   headers: {
@@ -50,5 +51,22 @@ return fetch(`${BASE_URL}restaurant/${restaurantId}`, {
     throw new Error("Something went wrong in getrestaurantOrders");
   });
 });
+
+}
+
+export function completeOrder(id) { 
+    return fetch(`${BASE_URL}order/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + tokenService.getToken(),
+      },
+    }).then((response) => {
+      if (response.ok) return response.json();
+      return response.json().then((res) => {
+        console.log(res, " <- this is the response in completeOrder");
+        throw new Error("Something went wrong in completeOrder");
+      });
+    });
+
 
 }

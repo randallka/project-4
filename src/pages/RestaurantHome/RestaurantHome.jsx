@@ -1,12 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { RestaurantContext } from "../../App";
 
 import EditRestaurantForm from "../../components/EditRestaurantForm/EditRestaurantForm";
+import Load from "../../components/Loader/Loader";
 
 function RestaurantHome({ setRestaurant }) {
   const restaurant = useContext(RestaurantContext);
-
+const [load, setLoad] = useState(false);
+if (load) {
+  return <Load />;
+}
   return (
     <>
       {restaurant ? (
@@ -20,7 +24,7 @@ function RestaurantHome({ setRestaurant }) {
           />
         </>
       ) : (
-        <p>No restaurant</p>
+        <Load />
       )}
     </>
   );

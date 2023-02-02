@@ -4,11 +4,12 @@ import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-
+import Load from '../../components/Loader/Loader'
 import { create } from "../../utils/restaurantApi";
 
 function RestaurantCreatePage() {
   const user = useContext(UserContext);
+  const [loading, setLoading] = useState(false)
   const [state, setState] = useState({
     name: "",
     address: "",
@@ -21,6 +22,7 @@ function RestaurantCreatePage() {
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
+    setLoading(true)
     e.preventDefault();
     const formData = new FormData();
     formData.append("photo", selectedFile);
@@ -30,6 +32,7 @@ function RestaurantCreatePage() {
     }
     try {
       await create(formData);
+      setLoading(false);
       navigate("/");
     } catch (err) {
       console.log(err.message, " this is the error in restaurant create page");
@@ -48,6 +51,11 @@ function RestaurantCreatePage() {
     setSelectedFile(e.target.files[0]);
   }
 
+  if (loading) { 
+    return (
+        <Load />
+    )
+}
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>

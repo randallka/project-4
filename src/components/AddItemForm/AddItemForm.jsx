@@ -5,8 +5,8 @@ import { useState, useContext } from "react";
 import { RestaurantContext } from "../../App";
 
 import { create } from "../../utils/itemApi";
-
-function AddItemForm() {
+// this takes a while to happen, create a form loader to show on the form until the action is finished 
+function AddItemForm({updatePage}) {
   const restaurant = useContext(RestaurantContext);
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
@@ -35,7 +35,10 @@ function AddItemForm() {
       formData.append(key, state[key]);
     }
     try {
-      await create(formData);
+      const newItem = await create(formData);
+      console.log(newItem.item)
+    //   setState(state())
+      updatePage(newItem.item)
     } catch (err) {
       console.log(err);
     }

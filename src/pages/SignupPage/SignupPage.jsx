@@ -12,6 +12,8 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 import userService from "../../utils/userService";
+import Load from "../../components/Loader/Loader";
+
 
 function SignUpPage({ handleSignUpOrLogin }) {
   const [state, setState] = useState({
@@ -23,13 +25,14 @@ function SignUpPage({ handleSignUpOrLogin }) {
     address: "",
     isRestaurantOwner: false,
   });
-
+const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoad(true)
     if (state.password === state.passwordConf) {
       try {
         await userService.signup(state);
@@ -44,6 +47,7 @@ function SignUpPage({ handleSignUpOrLogin }) {
         setError("Error signing up, please try again");
       }
     } else {
+        setLoad(false)
       setError("Please make sure your passwords match");
     }
   }
@@ -59,7 +63,9 @@ function SignUpPage({ handleSignUpOrLogin }) {
       isRestaurantOwner: !state.isRestaurantOwner,
     });
   }
-
+if (load) {
+  return <Load />;
+}
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
