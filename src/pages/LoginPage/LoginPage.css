@@ -1,9 +1,4 @@
-body { 
-    color: black;
-}
-.primary { 
-    color: rgb(254 160 48);
-}
+
 button.ui.button {
     background-color: rgb(254 160 48);
     color: rgb(44 44 44);

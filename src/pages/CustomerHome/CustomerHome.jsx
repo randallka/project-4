@@ -1,11 +1,13 @@
+import "./CustomerHome.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Card } from "semantic-ui-react";
+import { Grid, Card, Header } from "semantic-ui-react";
 
 import { index } from "../../utils/restaurantApi";
 import Load from "../../components/Loader/Loader";
 import RecentOrder from "../../components/RecentOrder/RecentOrder";
+import Restaurantcard from "../../components/RestaurantCard/RestaurantCard";
 export default function UserHomePage() {
   const [restaurants, setRestaurants] = useState([]);
   const [load, setLoad] = useState(false);
@@ -33,16 +35,18 @@ export default function UserHomePage() {
       <Grid.Row>
         <RecentOrder />
       </Grid.Row>
+      <Grid.Row className="primary">
+        <Header as="h1">Available Restaurants:</Header>
+      </Grid.Row>
       <Grid.Row>
         <Card.Group itemsPerRow={3}>
           <div>
             {restaurants.map((restaurant, i) => {
               return (
-                <div key={i}>
-                  <Link to={`/restaurant/${restaurant?._id}`}>
-                    {restaurant?.name}
-                  </Link>
-                </div>
+                <Restaurantcard key={i} data={restaurant}>
+                  
+                </Restaurantcard>
+                
               );
             })}
           </div>

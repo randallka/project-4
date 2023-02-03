@@ -1,0 +1,6 @@
+div.row.primary { 
+    background: rgb(254 160 48);
+    max-width: 80vw;
+    border-radius: 25px;
+    margin-bottom: 20px;
+}

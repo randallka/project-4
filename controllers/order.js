@@ -26,6 +26,7 @@ async function customerOrders(req, res) {
     const orders = await Order.find({ customer: req.params.id })
       .populate("restaurant")
       .populate("items")
+      .sort({'createdAt': 'desc'})
       .exec();
     console.log(orders, "customer orders");
     res.status(201).json({ orders });
