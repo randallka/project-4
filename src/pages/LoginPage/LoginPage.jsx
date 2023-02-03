@@ -6,6 +6,7 @@ import {
   Header,
   Message,
   Segment,
+  Image,
 } from "semantic-ui-react";
 import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
@@ -38,7 +39,6 @@ export default function LoginPage(props) {
     e.preventDefault();
 
     try {
-      setLoad(true)
       await userService.login(state);
       props.handleSignUpOrLogin();
       navigate("/");
@@ -56,7 +56,12 @@ if (load) {
       verticalAlign="middle"
     >
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="purple" textAlign="center">
+        <Header as="h2" textAlign="center">
+          <Image
+            circular 
+            src="https://i.imgur.com/VqmjIcX.png"
+            style={{ marginRight: "1.5em" }}
+          />
           Log-in to your account
         </Header>
         <Form onSubmit={handleSubmit}>
@@ -77,13 +82,7 @@ if (load) {
               onChange={handleChange}
               required
             />
-            <Button
-              color="purple"
-              fluid
-              size="large"
-              type="submit"
-              className="btn"
-            >
+            <Button fluid size="large" type="submit" className="btn">
               Login
             </Button>
           </Segment>

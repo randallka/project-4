@@ -17,7 +17,7 @@ export function getCart(userId) {
 }
 
 export function removeItem(itemId) { 
-    return fetch(`${BASE_URL}${itemId}`, {
+    return fetch(`${BASE_URL}remove/${itemId}`, {
     method: "PUT",
     headers: {
       Authorization: "Bearer " + tokenService.getToken(),
@@ -30,7 +30,6 @@ export function removeItem(itemId) {
     });
   });
 }
-
 
 export function addToCart(itemId) { 
     const item = {id: itemId}

@@ -31,7 +31,7 @@ function login(creds) {
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Bad Credentials!');
+    throw new Error('Invalid credentials: try again');
   })
   .then(({token}) => tokenService.setToken(token));
 }
