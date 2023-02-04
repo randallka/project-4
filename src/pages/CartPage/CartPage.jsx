@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from "react";
+import { Card, Grid, Header, Segment, Button } from "semantic-ui-react";
 
 import { getCart, removeItem, emptyCart } from "../../utils/cartApi";
 import { placeOrder } from "../../utils/orderApi";
@@ -35,8 +36,9 @@ function Cartpage() {
   async function removeItemFromCart(id) {
     try {
       setLoad(true);
-      const cart = await removeItem(id);
-      setCart(cart)
+      const newcart = await removeItem(id);
+      console.log(newcart)
+      setCart(newcart);
       setLoad(false);
     } catch (err) {
       console.log(err);
@@ -91,20 +93,31 @@ function Cartpage() {
   }
 
   return (
-    <div>
-      <h1>Cart items: </h1>
-      {cart?.items?.map((item, i) => {
-        return (
-          <ItemCard
-            key={i}
-            cardData={item}
-            inCart={true}
-            removeFromCart={removeItemFromCart}
-          />
-        );
-      })}
-      <button onClick={makeOrder}>Order items</button>
-    </div>
+    <Grid centered>
+      <Grid.Row className="primary">
+        <Header>Cart Items:</Header>
+      </Grid.Row>
+
+      <Grid.Row>
+        <Grid.Column style={{width: '80vw'}}>
+        <Segment>
+          <Card.Group itemsPerRow={3}>
+            {cart?.items?.map((item, i) => {
+              return (
+                <ItemCard
+                  key={i}
+                  cardData={item}
+                  inCart={true}
+                  removeFromCart={removeItemFromCart}
+                />
+              );
+            })}
+          </Card.Group>
+        </Segment>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row><Button onClick={makeOrder}>Order Items</Button></Grid.Row>
+    </Grid>
   );
 }
 

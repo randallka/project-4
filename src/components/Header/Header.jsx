@@ -13,9 +13,10 @@ function PageHeader({ logout }) {
       <Container>
         <Link to="/">
           <Menu.Item header>
+            
             <Image
               circular
-              size="mini"
+              size="tiny"
               src="https://i.imgur.com/VqmjIcX.png"
               style={{ marginRight: "1.5em" }}
             />
@@ -41,7 +42,7 @@ function PageHeader({ logout }) {
               Orders
             </Menu.Item>
             <Menu.Item as={Link} to={`/cart/${user?._id}`}>
-              Cart <Icon name="shopping cart" size="small" /> 
+              Cart <Icon name="shopping cart" size="small" />
             </Menu.Item>
           </>
         )}

@@ -25,13 +25,15 @@ function App() {
   const [load, setLoad] = useState(false)
   useEffect(() => {
     async function getRestaurant() {
-      if (user?.isRestaurantOwner) {
-        setLoad(true)
+      setLoad(true)
+      const loggedIn = await userService.getUser()
+      if (loggedIn.isRestaurantOwner) {
         const response = await getRestaurantByOwner(user);
         const data = response.data[0];
         setRestaurant(data);
-        setLoad(false)
+        
       }
+      setLoad(false)
     }
     getRestaurant();
   }, []);
@@ -40,8 +42,16 @@ function App() {
     // possibly refactor? store restaurant in component state for re-rendering
     setRestaurant(data);
   }
-  function handleSignUpOrLogin() {
-    setUser(userService.getUser());
+  async function handleSignUpOrLogin() {
+    try { 
+      setLoad(true)
+      const loggedIn = await userService.getUser();
+      setUser(loggedIn)
+      setLoad(false)
+    } catch(err) { 
+
+    }
+    
   }
   function handleLogout() {
     userService.logout();

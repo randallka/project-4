@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import { edit } from "../../utils/itemApi";
 
-function EditItemForm({ item, setItem }) {
+function EditItemForm({ item, setItem, updateCard }) {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
     name: "",
@@ -29,6 +29,7 @@ function EditItemForm({ item, setItem }) {
     try {
       e.preventDefault();
       const update = await edit(item?._id, state);
+      updateCard(state)
       setOpen(false);
     } catch (err) {
       console.log(err);

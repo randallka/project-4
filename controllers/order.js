@@ -1,3 +1,4 @@
+
 import Order from "../models/order.js";
 
 async function create(req, res) {
@@ -26,6 +27,7 @@ async function customerOrders(req, res) {
     const orders = await Order.find({ customer: req.params.id })
       .populate("restaurant")
       .populate("items")
+      .populate("customer")
       .sort({'createdAt': 'desc'})
       .exec();
     console.log(orders, "customer orders");
@@ -41,6 +43,7 @@ async function restaurantOrders(req, res) {
     const orders = await Order.find({ restaurant: req.params.id })
       .populate("customer")
       .populate('items')
+      .populate('restaurant')
       .exec();
     console.log(orders);
     res.status(201).json({ orders });
@@ -51,21 +54,19 @@ async function restaurantOrders(req, res) {
 
 async function completeOrder(req, res) {
   try {
+    console.log('controller hit', req.params.id)
     const id = req.params.id
-    const order = await Order.findByIdAndUpdate(
-      {id},
-      { status: true },
-      function (err, result) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Updated Order : ", result);
-        }
-      }
-    );
+    console.log("id", id)
+    const order = await Order.findById(id)
+    console.log(order)
+    order.status = true
+    console.log(order, "after")
     order.save()
+    order.populate('restaurant')
     res.status(201).json({ order });
-  } catch {}
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 export default { create, customerOrders, restaurantOrders, completeOrder };

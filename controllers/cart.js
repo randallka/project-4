@@ -41,9 +41,12 @@ async function addToCart(req, res) {
 async function removeItem(req, res) { 
     try { 
         const cart = await findUserCart(req.user._id)
+        await cart.populate('items')
+        
         const index = cart.items.indexOf(req.params.id)
         cart.items.splice(index, 1)
         cart.save()
+        console.log(cart)
         res.status(201).json({ cart });
     } catch(err) { 
         console.log(err)

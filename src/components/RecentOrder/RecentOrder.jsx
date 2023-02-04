@@ -43,13 +43,15 @@ async function orderAgain() {
     <Segment raised>
       <Header>Recent order from {recent.restaurant.name}</Header>
       <Segment.Inline>
+        <Image.Group>
         {recent.items.map((item, i) => {
           return (
             <Image key={i} rounded bordered size="tiny" src={item.imageUrl} />
           );
         })}
+        </Image.Group>
       </Segment.Inline>
-      <Button floated="right" onClick={orderAgain}>Oder Again</Button>
+      <Button onClick={orderAgain}>Oder Again</Button>
       {/* order again? -> will add items to cart and direct to cart */}
     </Segment>
   ) : (

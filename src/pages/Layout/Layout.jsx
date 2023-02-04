@@ -11,8 +11,8 @@ function Layout({ logout }) {
           <Header logout={logout} />
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row>
-        <Grid.Column>
+      <Grid.Row className="main">
+        <Grid.Column >
           <Outlet />
         </Grid.Column>
       </Grid.Row>
