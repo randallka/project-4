@@ -37,8 +37,7 @@ function Cartpage() {
     try {
       setLoad(true);
       const newcart = await removeItem(id);
-      console.log(newcart)
-      setCart(newcart);
+      setCart(newcart.cart);
       setLoad(false);
     } catch (err) {
       console.log(err);
@@ -77,7 +76,6 @@ function Cartpage() {
       setLoad(true);
       const orders = formatOrder();
       orders.forEach((order) => {
-        console.log(order, "passed in controller");
         placeOrder(order);
         emptyCart(cart._id);
         setCart([]);
@@ -91,32 +89,32 @@ function Cartpage() {
   if (load) {
     return <Load />;
   }
-
   return (
     <Grid centered>
       <Grid.Row className="primary">
         <Header>Cart Items:</Header>
       </Grid.Row>
-
       <Grid.Row>
-        <Grid.Column style={{width: '80vw'}}>
-        <Segment>
-          <Card.Group itemsPerRow={3}>
-            {cart?.items?.map((item, i) => {
-              return (
-                <ItemCard
-                  key={i}
-                  cardData={item}
-                  inCart={true}
-                  removeFromCart={removeItemFromCart}
-                />
-              );
-            })}
-          </Card.Group>
-        </Segment>
+        <Grid.Column style={{ width: "80vw" }}>
+          <Segment>
+            <Card.Group itemsPerRow={3}>
+              {cart?.items?.map((item, i) => {
+                return (
+                  <ItemCard
+                    key={i}
+                    cardData={item}
+                    inCart={true}
+                    removeFromCart={removeItemFromCart}
+                  />
+                );
+              })}
+            </Card.Group>
+          </Segment>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row><Button onClick={makeOrder}>Order Items</Button></Grid.Row>
+      <Grid.Row>
+        <Button onClick={makeOrder}>Order Items</Button>
+      </Grid.Row>
     </Grid>
   );
 }

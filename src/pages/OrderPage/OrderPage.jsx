@@ -1,4 +1,4 @@
-import "./OrderPage.css"
+import "./OrderPage.css";
 import { useContext, useEffect, useState } from "react";
 import { UserContext, RestaurantContext } from "../../App";
 import {
@@ -40,22 +40,21 @@ function OrderPage() {
 
   async function complete(id) {
     setLoad(true);
-    console.log("completing order", id);
     const completed = await completeOrder(id);
-    console.log(completed, "completed")
     setLoad(false);
-    const newPending = pendingOrders.filter(order => order._id !== completed._id)
-    const completedOrder = pendingOrders.filter((order) => order._id === completed._id);
-    setPastOrders([
-        ...pastOrders, 
-        completed
-    ])
-    setPendingOrders(newPending)
+    const newPending = pendingOrders.filter(
+      (order) => order._id !== completed.order._id
+    );
+    const completedOrder = pendingOrders.filter(
+      (order) => order._id === completed.order._id
+    );
+    setPastOrders([completed.order, ...pastOrders]);
+    setPendingOrders(newPending);
   }
+
   if (load) {
     return <Load />;
   }
-  //make an order card for each order, if it is on the restaurant side then have an option to complete order (status: true)
   return user?.isRestaurantOwner ? (
     <Grid columns={2}>
       <Grid.Row>
