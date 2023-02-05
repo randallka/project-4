@@ -57,18 +57,11 @@ function AddressForm({ liftAddress }) {
 
   function confirmAddress(e) {
     e.preventDefault();
-    console.log("confirming");
     if (feature) {
-      console.log(
-        `${feature.properties.address_line1}, ${feature.properties.place} ${feature.properties.region_code} ${feature.properties.postcode}`
-      );
-      console.log(feature.geometry.coordinates);
-      setAddress({
+      liftAddress({
         address: `${feature.properties.address_line1}, ${feature.properties.place} ${feature.properties.region_code} ${feature.properties.postcode}`,
         coordinates: feature.geometry.coordinates,
       });
-      console.log("lifting");
-      liftAddress(address);
     } else {
       setError("Please find a valid address");
     }
@@ -151,20 +144,22 @@ function AddressForm({ liftAddress }) {
       <Segment textAlign="center">
         {showValidationText && <div id="validation-msg">Address Confirmed</div>}
         <br />
-        <div id="minimap-container" style={{ height: "240px", width: "360px", paddingLeft: '18px'}}>
+        <div
+          id="minimap-container"
+          style={{ height: "240px", width: "360px", paddingLeft: "18px" }}
+        >
           <AddressMinimap
             canAdjustMarker={true}
             satelliteToggle={true}
             feature={feature}
             show={showMinimap}
             onSaveMarkerLocation={handleSaveMarkerLocation}
-            style={{justifySelf: 'center'}}
+            style={{ justifySelf: "center" }}
           />
-          
         </div>
         <br />
-          <br />
-          <br />
+        <br />
+        <br />
         <Grid.Column style={{ maxWidth: 450 }}>
           {error ? <ErrorMessage error={error} /> : null}
         </Grid.Column>

@@ -54,7 +54,7 @@ export default function LoginPage(props) {
       verticalAlign="middle"
     >
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" textAlign="center">
+        <Header as="h2" textAlign="center" style={{color: "white"}}>
           <Image
             circular
             src="https://i.imgur.com/VqmjIcX.png"

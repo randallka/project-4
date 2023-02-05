@@ -25,6 +25,7 @@ function App() {
   const [user, setUser] = useState(userService.getUser());
   const [restaurant, setRestaurant] = useState();
   const [load, setLoad] = useState(false);
+  
   useEffect(() => {
     async function getRestaurant() {
       setLoad(true);
@@ -37,7 +38,7 @@ function App() {
       setLoad(false);
     }
     getRestaurant();
-  }, []);
+  }, [user]);
 
   function changeRestaurant(data) {
     setRestaurant(data);
