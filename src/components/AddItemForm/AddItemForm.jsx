@@ -40,6 +40,12 @@ function AddItemForm({updatePage}) {
     } catch (err) {
       console.log(err);
     }
+    setState({
+      name: "",
+      restaurant: restaurant?._id,
+      price: "",
+      description: "",
+    });
   }
   return (
     <Modal

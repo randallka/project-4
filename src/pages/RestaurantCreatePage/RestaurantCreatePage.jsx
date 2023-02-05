@@ -10,6 +10,7 @@ import { create } from "../../utils/restaurantApi";
 function RestaurantCreatePage({setToggle}) {
   const user = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const [address, setAddress] = useState(false)
   const [state, setState] = useState({
     name: "",
     address: "",
@@ -58,6 +59,7 @@ function RestaurantCreatePage({setToggle}) {
       address: address.address,
       coordinates: address.coordinates,
     });
+    setAddress(true)
   }
   if (loading) {
     return <Load />;
@@ -93,9 +95,15 @@ function RestaurantCreatePage({setToggle}) {
                   onChange={handleFileInput}
                 />
               </Form.Field>
-              <Button type="submit" className="btn">
-                Create Restaurant
-              </Button>
+              {addressConfirmation ? (
+                <Button type="submit" className="btn">
+                  Create Restaurant
+                </Button>
+              ) : (
+                <Button disabled className="btn">
+                  Waiting for address confimation...
+                </Button>
+              )}
             </Segment>
             {error ? <ErrorMessage error={error} /> : null}
           </Form>
