@@ -9,11 +9,11 @@ const styles = {
   position: "relative",
 };
 // some code from mapbox docs
-const Map = () => {
+const Map = ({ restaurants }) => {
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
-
   const user = useContext(UserContext);
+
   useEffect(() => {
     mapboxgl.accessToken =
       "pk.eyJ1IjoicmFuZGFsbGthIiwiYSI6ImNsYzEyYTA0ZTN6cnYzdnBsY2kxbnQxeHcifQ.UXuG6o9McGmzc24bhWF44A";
@@ -23,6 +23,25 @@ const Map = () => {
         style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
         center: user.coordinates,
         zoom: 12,
+      });
+      const userLocation = new mapboxgl.Marker({
+        color: "rgb(44 44 44)",
+      })
+        .setLngLat(user.coordinates)
+        .addTo(map);
+
+      restaurants.map((restaurant, i) => {
+        const coordinates = restaurant.coordinates[0].split(",");
+        const parsedCoordinates = coordinates.map((coord) => {
+          return parseFloat(coord);
+        });
+        const popup = new mapboxgl.Popup().setText(restaurant.name).addTo(map);
+        return new mapboxgl.Marker({
+          color: "rgb(254 160 48)",
+        })
+          .setLngLat(parsedCoordinates)
+          .addTo(map)
+          .setPopup(popup);
       });
 
       map.on("load", () => {

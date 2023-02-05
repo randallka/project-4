@@ -41,7 +41,7 @@ export default function UserHomePage() {
           <Header as="h1">Available Restaurants:</Header>
         </Grid.Row>
         <Grid.Row>
-          <Map />
+          <Map restaurants={restaurants}/>
         </Grid.Row>
         <Grid.Row>
           <Card.Group itemsPerRow={3}>

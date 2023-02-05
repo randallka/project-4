@@ -74,95 +74,102 @@ function AddressForm({ liftAddress }) {
     }
   }
   return (
-    <Segment stacked>
-      <Form size="large" ref={formRef}>
-        <div>
-          <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
-            <Form.Input
-              label="Address"
-              placeholder="Start typing your address, e.g. 123 Main..."
-              autoComplete="address-line1"
-              id="mapbox-autofill"
-            />
-          </AddressAutofill>
-          <br />
-          {!showFormExpanded && (
+    <Segment.Group>
+      <Segment stacked>
+        <Form size="large" ref={formRef}>
+          <div>
+            <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
+              <Form.Input
+                label="Address"
+                placeholder="Start typing your address, e.g. 123 Main..."
+                autoComplete="address-line1"
+                id="mapbox-autofill"
+              />
+            </AddressAutofill>
+            <br />
+            {!showFormExpanded && (
+              <div>
+                <Button
+                  className="btn"
+                  size="small"
+                  id="manual-entry"
+                  onClick={() => setShowFormExpanded(true)}
+                >
+                  Enter an address manually
+                </Button>
+              </div>
+            )}
+            <div
+              className="secondary-inputs"
+              style={{ display: showFormExpanded ? "block" : "none" }}
+            >
+              <Form.Input
+                label="Address Line 2"
+                placeholder="Apartment, suite, unit, building, floor, etc."
+                autoComplete="address-line2"
+              />
+              <Form.Input
+                label="City"
+                placeholder="City"
+                autoComplete="address-level2"
+              />
+              <Form.Input
+                label="State / Region"
+                placeholder="State / Region"
+                autoComplete="address-level1"
+              />
+              <Form.Input
+                label="Zip / Postal Code"
+                placeholder="ZIP / Postcode"
+                autoComplete="postal-code"
+              />
+            </div>
+          </div>
+          {showFormExpanded && (
             <div>
+              <br />
+              <Button
+                size="small"
+                type="submit"
+                className="btn"
+                onClick={confirmAddress}
+              >
+                Confirm
+              </Button>
               <Button
                 className="btn"
                 size="small"
-                id="manual-entry"
-                onClick={() => setShowFormExpanded(true)}
+                id="btn-reset"
+                onClick={resetAddressForm}
               >
-                Enter an address manually
+                Reset
               </Button>
             </div>
           )}
-          <div
-            className="secondary-inputs"
-            style={{ display: showFormExpanded ? "block" : "none" }}
-          >
-            <Form.Input
-              label="Address Line 2"
-              placeholder="Apartment, suite, unit, building, floor, etc."
-              autoComplete="address-line2"
-            />
-            <Form.Input
-              label="City"
-              placeholder="City"
-              autoComplete="address-level2"
-            />
-            <Form.Input
-              label="State / Region"
-              placeholder="State / Region"
-              autoComplete="address-level1"
-            />
-            <Form.Input
-              label="Zip / Postal Code"
-              placeholder="ZIP / Postcode"
-              autoComplete="postal-code"
-            />
-          </div>
-        </div>
-        {showFormExpanded && (
-          <div>
-            <br />
-            <Button
-              size="small"
-              type="submit"
-              className="btn"
-              onClick={confirmAddress}
-            >
-              Confirm
-            </Button>
-            <Button
-              className="btn"
-              size="small"
-              id="btn-reset"
-              onClick={resetAddressForm}
-            >
-              Reset
-            </Button>
-          </div>
-        )}
-      </Form>
-      {showValidationText && <div id="validation-msg">Address Confirmed</div>}
-      <div>
+        </Form>
+      </Segment>
+      <Segment textAlign="center">
+        {showValidationText && <div id="validation-msg">Address Confirmed</div>}
         <br />
-        <div id="minimap-container" style={{ height: "240px", width: "360px" }}>
+        <div id="minimap-container" style={{ height: "240px", width: "360px", paddingLeft: '18px'}}>
           <AddressMinimap
             canAdjustMarker={true}
             satelliteToggle={true}
             feature={feature}
             show={showMinimap}
             onSaveMarkerLocation={handleSaveMarkerLocation}
+            style={{justifySelf: 'center'}}
           />
+          
         </div>
-      </div>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        {error ? <ErrorMessage error={error} /> : null}
-      </Grid.Column>
-    </Segment>
+        <br />
+          <br />
+          <br />
+        <Grid.Column style={{ maxWidth: 450 }}>
+          {error ? <ErrorMessage error={error} /> : null}
+        </Grid.Column>
+      </Segment>
+    </Segment.Group>
   );
 }
 
