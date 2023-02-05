@@ -2,9 +2,10 @@ import "./OrderCard.css";
 import { useState } from "react";
 import { Card, Accordion, Icon, List, Image, Button } from "semantic-ui-react";
 import Load from "../Loader/Loader";
+
 function OrderCard({ data, complete }) {
   const [activeindex, setActiveIndex] = useState(1);
-const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const date = new Date(data.createdAt);
   const day = date.toDateString();
   const time = date.toLocaleTimeString([], {
@@ -16,11 +17,9 @@ const [loading, setLoading] = useState(false)
     const newIndex = activeindex === titleProps ? -1 : titleProps;
     setActiveIndex(newIndex);
   }
-if (loading) { 
-    return ( 
-        <Load />
-    )
-}
+  if (loading) {
+    return <Load />;
+  }
 
   return (
     <Card>

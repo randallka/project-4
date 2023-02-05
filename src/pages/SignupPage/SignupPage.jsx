@@ -25,7 +25,8 @@ function SignUpPage({ handleSignUpOrLogin }) {
     coordinates: [],
     isRestaurantOwner: false,
   });
-const [addressConfirmation, setAddressConfirmation] = useState(false)
+
+  const [addressConfirmation, setAddressConfirmation] = useState(false);
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
@@ -36,7 +37,7 @@ const [addressConfirmation, setAddressConfirmation] = useState(false)
     setLoad(true);
     if (state.password === state.passwordConf) {
       try {
-        console.log(state)
+        console.log(state);
         await userService.signup(state);
         handleSignUpOrLogin();
         if (state.isRestaurantOwner) {
@@ -53,36 +54,40 @@ const [addressConfirmation, setAddressConfirmation] = useState(false)
       setError("Please make sure your passwords match");
     }
   }
+
   function handleChange(e) {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
   }
+
   function handleCheck(e) {
     setState({
       ...state,
       isRestaurantOwner: !state.isRestaurantOwner,
     });
   }
-  function liftAddress(address) { 
-    console.log('lifting to signup page')
+
+  function liftAddress(address) {
+    console.log("lifting to signup page");
     setState({
-        ...state,
-        address: address.address, 
-        coordinates: address.coordinates
-    })
-    setAddressConfirmation(true)
+      ...state,
+      address: address.address,
+      coordinates: address.coordinates,
+    });
+    setAddressConfirmation(true);
   }
+
   if (load) {
     return <Load />;
   }
+
   return (
     <Grid textAlign="center" verticalAlign="middle">
       <Header as="h1" style={{ color: "rgb(254 160 48)", margin: "5vh" }}>
         SignUp
       </Header>
-
       <Grid.Row columns={2}>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Form autoComplete="off" onSubmit={handleSubmit}>
@@ -114,17 +119,6 @@ const [addressConfirmation, setAddressConfirmation] = useState(false)
                 onChange={handleChange}
                 required
               />
-
-              {/* <AddressAutofill accessToken="pk.eyJ1IjoicmFuZGFsbGthIiwiYSI6ImNsYzEyYTA0ZTN6cnYzdnBsY2kxbnQxeHcifQ.UXuG6o9McGmzc24bhWF44A">
-              <Form.Input
-                type="address"
-                name="address"
-                placeholder="Address"
-                onChange={handleChange}
-                required
-                autoComplete="street-address"
-              />
-            </AddressAutofill> */}
               <Form.Input
                 name="password"
                 type="password"
@@ -160,10 +154,8 @@ const [addressConfirmation, setAddressConfirmation] = useState(false)
           {error ? <ErrorMessage error={error} /> : null}
         </Grid.Column>
       </Grid.Row>
-      
     </Grid>
   );
 }
-//move button to bottom - validate form and have address + coordinates in state (add to db)
-//button onclick=submit (no onsubmit for form )
+
 export default SignUpPage;

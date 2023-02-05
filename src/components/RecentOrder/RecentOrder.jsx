@@ -6,12 +6,13 @@ import { Segment, Header, Image, Button } from "semantic-ui-react";
 import { getUserOrders } from "../../utils/orderApi";
 import { addToCart } from "../../utils/cartApi";
 import Load from "../Loader/Loader";
+
 function RecentOrder() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useContext(UserContext);
   const [recent, setRecent] = useState();
   const [load, setload] = useState(true);
-  //get recent by user Id function
+
   useEffect(() => {
     async function getRecent() {
       try {
@@ -24,31 +25,34 @@ function RecentOrder() {
     }
     getRecent();
   }, []);
-async function orderAgain() { 
-    try { 
-        setload(true)
-        recent.items.map((item) => {
-            addToCart(item)
-        })
-        setload(false)
-        navigate(`/cart/${user._id}`)
-    }catch(err) { 
-        console.log(err)
+
+  async function orderAgain() {
+    try {
+      setload(true);
+      recent.items.map((item) => {
+        addToCart(item);
+      });
+      setload(false);
+      navigate(`/cart/${user._id}`);
+    } catch (err) {
+      console.log(err);
     }
-}
+  }
+
   if (load) {
     return <Load />;
   }
+
   return recent ? (
     <Segment raised>
       <Header>Recent order from {recent.restaurant.name}</Header>
       <Segment.Inline>
         <Image.Group>
-        {recent.items.map((item, i) => {
-          return (
-            <Image key={i} rounded bordered size="tiny" src={item.imageUrl} />
-          );
-        })}
+          {recent.items.map((item, i) => {
+            return (
+              <Image key={i} rounded bordered size="tiny" src={item.imageUrl} />
+            );
+          })}
         </Image.Group>
       </Segment.Inline>
       <Button onClick={orderAgain}>Oder Again</Button>

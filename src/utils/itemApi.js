@@ -2,8 +2,6 @@ import tokenService from "./tokenService";
 const BASE_URL = "/api/items";
 
 export function create(data) {
-  
-  console.log(data);
   return fetch(BASE_URL, {
     method: "POST",
     body: data,
@@ -39,13 +37,13 @@ export function edit(id, data) {
   });
 }
 
-export function deleteItem(id) { 
-    return fetch(`${BASE_URL}/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + tokenService.getToken(),
-      },
-    }).then((res) => {
-      if (res.ok) return res.json();
-    });
+export function deleteItem(id) {
+  return fetch(`${BASE_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + tokenService.getToken(),
+    },
+  }).then((res) => {
+    if (res.ok) return res.json();
+  });
 }

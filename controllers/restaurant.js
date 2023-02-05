@@ -1,7 +1,4 @@
 import Restaurant from "../models/restaurant.js";
-import Item from "../models/item.js";
-// import S3 from "aws-sdk/clients/s3.js";
-// const s3 = new S3();
 import { s3 } from "../config/s3-config.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,7 +23,6 @@ function create(req, res) {
     console.log(err, " err from aws");
     if (err)
       return res.status(400).json({ err: "Check terminal error from aws" });
-
     try {
       const restaurant = await Restaurant.create({
         menu: [],
@@ -37,9 +33,7 @@ function create(req, res) {
         description: req.body.description,
         logoUrl: data.Location,
       });
-
       await restaurant.populate("owner");
-
       res.status(201).json({ restaurant });
     } catch (err) {
       res.status(400).json({ err });

@@ -13,7 +13,6 @@ function PageHeader({ logout }) {
       <Container>
         <Link to="/">
           <Menu.Item header>
-            
             <Image
               circular
               size="tiny"

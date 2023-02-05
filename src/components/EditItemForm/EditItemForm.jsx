@@ -25,6 +25,7 @@ function EditItemForm({ item, setItem, updateCard }) {
       [e.target.name]: e.target.value,
     });
   }
+
   async function handleSubmit(e) {
     try {
       e.preventDefault();
@@ -35,6 +36,7 @@ function EditItemForm({ item, setItem, updateCard }) {
       console.log(err);
     }
   }
+  
   return (
     <Modal
       closeIcon

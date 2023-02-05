@@ -1,8 +1,6 @@
 import Item from "../models/item.js";
 import restaurantCtrl from "./restaurant.js";
-import {s3} from '../config/s3-config.js'
-// import S3 from "aws-sdk/clients/s3.js";
-// const s3 = new S3();
+import { s3 } from "../config/s3-config.js";
 import { v4 as uuidv4 } from "uuid";
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
@@ -14,10 +12,7 @@ function create(req, res) {
   const params = { Bucket: BUCKET_NAME, Key: key, Body: req.file.buffer };
 
   s3.upload(params, async function (err, data) {
-    console.log(err, " err from aws");
-    if (err)
-      return res.status(400).json({ err: "Check terminal error from aws" });
-
+    if (err) return res.status(400).json({ err: "Error from aws" });
     try {
       const item = await Item.create({
         name: req.body.name,
@@ -26,7 +21,6 @@ function create(req, res) {
         description: req.body.description,
         imageUrl: data.Location,
       });
-      console.log(item)
       await restaurantCtrl.addToMenu(req.body.restaurant, item);
       res.status(201).json({ item });
     } catch (err) {

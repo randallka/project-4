@@ -36,8 +36,6 @@ function AddItemForm({updatePage}) {
     }
     try {
       const newItem = await create(formData);
-      console.log(newItem.item)
-    //   setState(state())
       updatePage(newItem.item)
     } catch (err) {
       console.log(err);

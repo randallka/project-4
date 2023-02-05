@@ -1,4 +1,3 @@
-
 import Order from "../models/order.js";
 
 async function create(req, res) {

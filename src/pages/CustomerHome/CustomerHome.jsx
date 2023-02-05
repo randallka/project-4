@@ -9,6 +9,7 @@ import Load from "../../components/Loader/Loader";
 import RecentOrder from "../../components/RecentOrder/RecentOrder";
 import Restaurantcard from "../../components/RestaurantCard/RestaurantCard";
 import Map from "../../components/Map/Map";
+
 export default function UserHomePage() {
   const [restaurants, setRestaurants] = useState([]);
   const [load, setLoad] = useState(false);
@@ -22,6 +23,7 @@ export default function UserHomePage() {
       console.log(err);
     }
   }
+
   useEffect(() => {
     getAll();
   }, []);
@@ -29,31 +31,30 @@ export default function UserHomePage() {
     return <Load />;
   }
 
-  // return most recent order display
-  //return a list of restaurant cards
   return (
     <>
-    <Grid centered>
-      <Grid.Row>
-        <RecentOrder />
-      </Grid.Row>
-      <Grid.Row className="primary">
-        <Header as="h1">Available Restaurants:</Header>
-      </Grid.Row>
-      <Grid.Row>
-        <Map />
-      </Grid.Row>
-      <Grid.Row>
-        <Card.Group itemsPerRow={3}>
-          <div>
-            {restaurants.map((restaurant, i) => {
-              return (
-                <Restaurantcard key={i} data={restaurant}></Restaurantcard>
-              );
-            })}
-          </div>
-        </Card.Group>
-      </Grid.Row>
-    </Grid></>
+      <Grid centered>
+        <Grid.Row>
+          <RecentOrder />
+        </Grid.Row>
+        <Grid.Row className="primary">
+          <Header as="h1">Available Restaurants:</Header>
+        </Grid.Row>
+        <Grid.Row>
+          <Map />
+        </Grid.Row>
+        <Grid.Row>
+          <Card.Group itemsPerRow={3}>
+            <div>
+              {restaurants.map((restaurant, i) => {
+                return (
+                  <Restaurantcard key={i} data={restaurant}></Restaurantcard>
+                );
+              })}
+            </div>
+          </Card.Group>
+        </Grid.Row>
+      </Grid>
+    </>
   );
 }

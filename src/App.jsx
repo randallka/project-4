@@ -3,6 +3,7 @@ import "./App.css";
 import { useState, createContext, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
+import Load from "./components/Loader/Loader";
 import Layout from "./pages/Layout/Layout";
 import RestaurantHome from "./pages/RestaurantHome/RestaurantHome";
 import CustomerHome from "./pages/CustomerHome/CustomerHome";
@@ -13,54 +14,54 @@ import RestaurantPage from "./pages/RestaurantPage/RestaurantPgae";
 import MenuPage from "./pages/MenuPage/MenuPage";
 import CartPage from "./pages/CartPage/CartPage";
 import OrderPage from "./pages/OrderPage/OrderPage";
+
 import { getRestaurantByOwner } from "./utils/restaurantApi";
 import userService from "./utils/userService";
-import Load from "./components/Loader/Loader";
+
 export const UserContext = createContext();
 export const RestaurantContext = createContext();
 
 function App() {
   const [user, setUser] = useState(userService.getUser());
   const [restaurant, setRestaurant] = useState();
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
   useEffect(() => {
     async function getRestaurant() {
-      setLoad(true)
-      const loggedIn = await userService.getUser()
+      setLoad(true);
+      const loggedIn = await userService.getUser();
       if (loggedIn?.isRestaurantOwner) {
         const response = await getRestaurantByOwner(user);
         const data = response.data[0];
         setRestaurant(data);
-        
       }
-      setLoad(false)
+      setLoad(false);
     }
     getRestaurant();
   }, []);
 
   function changeRestaurant(data) {
-    // possibly refactor? store restaurant in component state for re-rendering
     setRestaurant(data);
   }
-  async function handleSignUpOrLogin() {
-    try { 
-      setLoad(true)
-      const loggedIn = await userService.getUser();
-      setUser(loggedIn)
-      setLoad(false)
-    } catch(err) { 
 
-    }
-    
+  async function handleSignUpOrLogin() {
+    try {
+      setLoad(true);
+      const loggedIn = await userService.getUser();
+      setUser(loggedIn);
+      setLoad(false);
+    } catch (err) {}
   }
+
   function handleLogout() {
     userService.logout();
     setUser(null);
   }
+
   if (user) {
-if (load) { 
-  return (<Load />)
-}
+    if (load) {
+      return <Load />;
+    }
+
     return (
       <UserContext.Provider value={user}>
         <RestaurantContext.Provider value={restaurant}>

@@ -10,6 +10,7 @@ function RestaurantPage() {
   const restaurantId = useParams();
   const [restaurant, setRestaurant] = useState({});
   const [load, setLoad] = useState(false);
+
   useEffect(() => {
     async function getRestaurant() {
       try {
@@ -23,9 +24,11 @@ function RestaurantPage() {
     }
     getRestaurant();
   }, []);
+
   if (load) {
     return <Load />;
   }
+
   return (
     <Grid centered>
       <Grid.Row>
@@ -53,7 +56,7 @@ function RestaurantPage() {
 
       <Grid.Row>
         <Grid.Column style={{ width: "80vw" }}>
-          <Header textAlign='center' style={{ color: "white" }} as="h1">
+          <Header textAlign="center" style={{ color: "white" }} as="h1">
             Menu:
           </Header>
           <Card.Group itemsPerRow={3}>

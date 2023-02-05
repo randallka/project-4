@@ -5,17 +5,8 @@ import {
   useConfirmAddress,
   config,
 } from "@mapbox/search-js-react";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Image,
-  Message,
-  Segment,
-} from "semantic-ui-react";
+import { Button, Form, Grid, Segment } from "semantic-ui-react";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-//mapbox stuff ++++++++++++++++++++++++++++++++++++++
 //Most of the functions are from the mapbox docs: https://docs.mapbox.com/mapbox-search-js/example/autofill-checkout-react/
 
 function AddressForm({ liftAddress }) {
@@ -52,12 +43,9 @@ function AddressForm({ liftAddress }) {
     },
     [setFeature, setShowMinimap]
   );
-
   function handleSaveMarkerLocation(coordinate) {
     console.log(`Marker moved to ${JSON.stringify(coordinate)}.`);
   }
-
-  
 
   function resetAddressForm() {
     const inputs = document.querySelectorAll("input");
@@ -71,21 +59,20 @@ function AddressForm({ liftAddress }) {
     e.preventDefault();
     console.log("confirming");
     if (feature) {
-        console.log(
-          `${feature.properties.address_line1}, ${feature.properties.place} ${feature.properties.region_code} ${feature.properties.postcode}`
-        );
-        console.log(feature.geometry.coordinates);
+      console.log(
+        `${feature.properties.address_line1}, ${feature.properties.place} ${feature.properties.region_code} ${feature.properties.postcode}`
+      );
+      console.log(feature.geometry.coordinates);
       setAddress({
         address: `${feature.properties.address_line1}, ${feature.properties.place} ${feature.properties.region_code} ${feature.properties.postcode}`,
         coordinates: feature.geometry.coordinates,
       });
-      console.log('lifting')
+      console.log("lifting");
       liftAddress(address);
     } else {
       setError("Please find a valid address");
     }
   }
-  //+++++++++++++++++++++++++++++++++++++++++++++++++
   return (
     <Segment stacked>
       <Form size="large" ref={formRef}>

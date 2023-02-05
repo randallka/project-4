@@ -8,10 +8,9 @@ import { UserContext } from "../../App";
 
 import ItemCard from "../../components/ItemCard/ItemCard";
 import Load from "../../components/Loader/Loader";
-//need to update component when items are added/removed- right now it takes a refresh
+
 function Cartpage() {
   const user = useContext(UserContext);
-
   const [load, setLoad] = useState(false);
   const [cart, setCart] = useState({});
   const [cartInfo, setCartInfo] = useState({

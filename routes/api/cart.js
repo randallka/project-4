@@ -3,9 +3,8 @@ const router = express.Router();
 import cartCtrl from "../../controllers/cart.js";
 
 router.put("/:id/empty", cartCtrl.emptyCart);
-router.get('/:id', cartCtrl.getCart)
+router.get("/:id", cartCtrl.getCart);
 router.put("/remove/:id", cartCtrl.removeItem);
-router.post('/', cartCtrl.addToCart)
-
+router.post("/", cartCtrl.addToCart);
 
 export default router;

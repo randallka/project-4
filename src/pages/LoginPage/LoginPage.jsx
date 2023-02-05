@@ -14,9 +14,7 @@ import React, { useState } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Load from "../../components/Loader/Loader";
 
-
 import userService from "../../utils/userService";
-
 
 export default function LoginPage(props) {
   const [error, setError] = useState("");
@@ -46,9 +44,9 @@ export default function LoginPage(props) {
       setError(err.message);
     }
   }
-if (load) {
-  return <Load />;
-}
+  if (load) {
+    return <Load />;
+  }
   return (
     <Grid
       textAlign="center"
@@ -58,7 +56,7 @@ if (load) {
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" textAlign="center">
           <Image
-            circular 
+            circular
             src="https://i.imgur.com/VqmjIcX.png"
             style={{ marginRight: "1.5em" }}
           />

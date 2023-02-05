@@ -19,12 +19,14 @@ function EditRestaurantForm({ restaurant, setRestaurant }) {
       description: restaurant.description,
     });
   }, [restaurant]);
+
   function handleChange(e) {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
   }
+
   async function handleSubmit(e) {
     try {
       e.preventDefault();
@@ -35,6 +37,7 @@ function EditRestaurantForm({ restaurant, setRestaurant }) {
       console.log(err);
     }
   }
+
   return (
     <Modal
       closeIcon

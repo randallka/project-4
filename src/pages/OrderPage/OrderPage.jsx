@@ -9,12 +9,14 @@ import {
 import Load from "../../components/Loader/Loader";
 import { Grid, Header, Card } from "semantic-ui-react";
 import OrderCard from "../../components/OrderCard/OrderCard";
+
 function OrderPage() {
   const user = useContext(UserContext);
   const restaurant = useContext(RestaurantContext);
   const [pendingOrders, setPendingOrders] = useState([]);
   const [pastOrders, setPastOrders] = useState([]);
   const [load, setLoad] = useState(false);
+
   useEffect(() => {
     async function getOrders() {
       if (user.isRestaurantOwner) {

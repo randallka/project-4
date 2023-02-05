@@ -1,8 +1,8 @@
 import tokenService from "./tokenService";
 const BASE_URL = "/api/cart/";
 
-export function getCart(userId) { 
-    return fetch(`${BASE_URL}${userId}`, {
+export function getCart(userId) {
+  return fetch(`${BASE_URL}${userId}`, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + tokenService.getToken(),
@@ -16,8 +16,8 @@ export function getCart(userId) {
   });
 }
 
-export function removeItem(itemId) { 
-    return fetch(`${BASE_URL}remove/${itemId}`, {
+export function removeItem(itemId) {
+  return fetch(`${BASE_URL}remove/${itemId}`, {
     method: "PUT",
     headers: {
       Authorization: "Bearer " + tokenService.getToken(),
@@ -31,9 +31,9 @@ export function removeItem(itemId) {
   });
 }
 
-export function addToCart(itemId) { 
-    const item = {id: itemId}
-    return fetch(BASE_URL, {
+export function addToCart(itemId) {
+  const item = { id: itemId };
+  return fetch(BASE_URL, {
     method: "POST",
     body: JSON.stringify(item),
     headers: {
@@ -49,19 +49,17 @@ export function addToCart(itemId) {
   });
 }
 
-export function emptyCart(id) { 
-    console.log("empty cart", id)
-    return fetch(`${BASE_URL}${id}/empty`, {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + tokenService.getToken(),
-      },
-    }).then((response) => {
-      if (response.ok) return response.json();
-      return response.json().then((res) => {
-        console.log(res, " <- this is the response in empty cart");
-        throw new Error("Something went wrong in empty cart");
-      });
+export function emptyCart(id) {
+  return fetch(`${BASE_URL}${id}/empty`, {
+    method: "PUT",
+    headers: {
+      Authorization: "Bearer " + tokenService.getToken(),
+    },
+  }).then((response) => {
+    if (response.ok) return response.json();
+    return response.json().then((res) => {
+      console.log(res, " <- this is the response in empty cart");
+      throw new Error("Something went wrong in empty cart");
     });
-
+  });
 }
