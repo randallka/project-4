@@ -27,7 +27,7 @@ function App() {
     async function getRestaurant() {
       setLoad(true)
       const loggedIn = await userService.getUser()
-      if (loggedIn.isRestaurantOwner) {
+      if (loggedIn?.isRestaurantOwner) {
         const response = await getRestaurantByOwner(user);
         const data = response.data[0];
         setRestaurant(data);

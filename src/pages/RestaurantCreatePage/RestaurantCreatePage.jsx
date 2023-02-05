@@ -2,7 +2,7 @@ import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
 import { useState, useContext } from "react";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-
+import AddressForm from "../../components/AddressForm/AddressForm";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Load from '../../components/Loader/Loader'
 import { create } from "../../utils/restaurantApi";
@@ -13,6 +13,7 @@ function RestaurantCreatePage() {
   const [state, setState] = useState({
     name: "",
     address: "",
+    coordinates: [],
     description: "",
   });
 
@@ -50,32 +51,32 @@ function RestaurantCreatePage() {
   function handleFileInput(e) {
     setSelectedFile(e.target.files[0]);
   }
-
+function liftAddress(address) {
+  setState({
+    ...state,
+    address: address.address,
+    coordinates: address.coordinates,
+  });
+}
   if (loading) { 
     return (
         <Load />
     )
 }
   return (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="purple" textAlign="center">
-          Enter Restaurant Information
-        </Header>
-        <Form autoComplete="off" onSubmit={handleSubmit}>
+    <Grid textAlign="center" verticalAlign="middle">
+      <Header as="h1" style={{ color: "rgb(254 160 48)", margin: "5vh" }}>
+        Create Restaurant
+      </Header>
+
+      <Grid.Row columns={2}>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Form autoComplete="off" onSubmit={handleSubmit}>
           <Segment stacked>
             <Form.Input
               name="name"
               placeholder="Restaurant Name"
               value={state.name}
-              onChange={handleChange}
-              required
-            />
-            <Form.Input
-              type="address"
-              name="address"
-              placeholder="Restaurant Address"
-              value={state.address}
               onChange={handleChange}
               required
             />
@@ -100,7 +101,16 @@ function RestaurantCreatePage() {
           </Segment>
           {error ? <ErrorMessage error={error} /> : null}
         </Form>
-      </Grid.Column>
+        </Grid.Column>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <AddressForm liftAddress={liftAddress} />
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          {error ? <ErrorMessage error={error} /> : null}
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   );
 }

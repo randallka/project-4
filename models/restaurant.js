@@ -4,6 +4,7 @@ const restaurantSchema = new mongoose.Schema({
   name: { type: String, required: true },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   address: { type: String, required: true, unique: true },
+  coordinates: { type: Array, required: true },
   logoUrl: String,
   description: String,
   menu: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],

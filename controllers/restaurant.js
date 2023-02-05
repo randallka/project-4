@@ -33,6 +33,7 @@ function create(req, res) {
         name: req.body.name,
         owner: req.user._id,
         address: req.body.address,
+        coordinates: req.body.coordinates,
         description: req.body.description,
         logoUrl: data.Location,
       });

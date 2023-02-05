@@ -8,12 +8,11 @@ import {
 } from "semantic-ui-react";
 import { useState } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-
 import { useNavigate } from "react-router-dom";
 
 import userService from "../../utils/userService";
 import Load from "../../components/Loader/Loader";
-
+import AddressForm from "../../components/AddressForm/AddressForm";
 
 function SignUpPage({ handleSignUpOrLogin }) {
   const [state, setState] = useState({
@@ -23,18 +22,21 @@ function SignUpPage({ handleSignUpOrLogin }) {
     password: "",
     passwordConf: "",
     address: "",
+    coordinates: [],
     isRestaurantOwner: false,
   });
-const [load, setLoad] = useState(false);
+const [addressConfirmation, setAddressConfirmation] = useState(false)
+  const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoad(true)
+    setLoad(true);
     if (state.password === state.passwordConf) {
       try {
+        console.log(state)
         await userService.signup(state);
         handleSignUpOrLogin();
         if (state.isRestaurantOwner) {
@@ -47,7 +49,7 @@ const [load, setLoad] = useState(false);
         setError("Error signing up, please try again");
       }
     } else {
-        setLoad(false)
+      setLoad(false);
       setError("Please make sure your passwords match");
     }
   }
@@ -63,73 +65,105 @@ const [load, setLoad] = useState(false);
       isRestaurantOwner: !state.isRestaurantOwner,
     });
   }
-if (load) {
-  return <Load />;
-}
+  function liftAddress(address) { 
+    console.log('lifting to signup page')
+    setState({
+        ...state,
+        address: address.address, 
+        coordinates: address.coordinates
+    })
+    setAddressConfirmation(true)
+  }
+  if (load) {
+    return <Load />;
+  }
   return (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="purple" textAlign="center">
-          Sign Up
-        </Header>
-        <Form autoComplete="off" onSubmit={handleSubmit}>
-          <Form.Field>
-            <Checkbox
-              label="I am signing up as a restaurant owner"
-              toggle
-              onChange={handleCheck}
-            />
-          </Form.Field>
-          <Segment stacked>
-            <Form.Input
-              name="firstName"
-              placeholder="First Name"
-              onChange={handleChange}
-              required
-            />
-            <Form.Input
-              name="lastName"
-              placeholder="Last Name"
-              onChange={handleChange}
-              required
-            />
-            <Form.Input
-              type="email"
-              name="email"
-              placeholder="email"
-              onChange={handleChange}
-              required
-            />
-            <Form.Input
-              type="address"
-              name="address"
-              placeholder="Address"
-              onChange={handleChange}
-              required
-            />
-            <Form.Input
-              name="password"
-              type="password"
-              placeholder="password"
-              onChange={handleChange}
-              required
-            />
-            <Form.Input
-              name="passwordConf"
-              type="password"
-              placeholder="Confirm Password"
-              onChange={handleChange}
-              required
-            />
-            <Button type="submit" className="btn">
-              Signup
-            </Button>
-          </Segment>
+    <Grid textAlign="center" verticalAlign="middle">
+      <Header as="h1" style={{ color: "rgb(254 160 48)", margin: "5vh" }}>
+        SignUp
+      </Header>
+
+      <Grid.Row columns={2}>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Form autoComplete="off" onSubmit={handleSubmit}>
+            <Segment stacked>
+              <Form.Field>
+                <Checkbox
+                  style={{ color: "white" }}
+                  label="I am signing up as a restaurant owner"
+                  toggle
+                  onChange={handleCheck}
+                />
+              </Form.Field>
+              <Form.Input
+                name="firstName"
+                placeholder="First Name"
+                onChange={handleChange}
+                required
+              />
+              <Form.Input
+                name="lastName"
+                placeholder="Last Name"
+                onChange={handleChange}
+                required
+              />
+              <Form.Input
+                type="email"
+                name="email"
+                placeholder="email"
+                onChange={handleChange}
+                required
+              />
+
+              {/* <AddressAutofill accessToken="pk.eyJ1IjoicmFuZGFsbGthIiwiYSI6ImNsYzEyYTA0ZTN6cnYzdnBsY2kxbnQxeHcifQ.UXuG6o9McGmzc24bhWF44A">
+              <Form.Input
+                type="address"
+                name="address"
+                placeholder="Address"
+                onChange={handleChange}
+                required
+                autoComplete="street-address"
+              />
+            </AddressAutofill> */}
+              <Form.Input
+                name="password"
+                type="password"
+                placeholder="password"
+                onChange={handleChange}
+                required
+              />
+              <Form.Input
+                name="passwordConf"
+                type="password"
+                placeholder="Confirm Password"
+                onChange={handleChange}
+                required
+              />
+              {addressConfirmation ? (
+                <Button type="submit" className="btn">
+                  Signup
+                </Button>
+              ) : (
+                <Button disabled className="btn">
+                  Waiting for address confimation...
+                </Button>
+              )}
+            </Segment>
+          </Form>
+        </Grid.Column>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <AddressForm liftAddress={liftAddress} />
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column style={{ maxWidth: 450 }}>
           {error ? <ErrorMessage error={error} /> : null}
-        </Form>
-      </Grid.Column>
+        </Grid.Column>
+      </Grid.Row>
+      
     </Grid>
   );
 }
-
+//move button to bottom - validate form and have address + coordinates in state (add to db)
+//button onclick=submit (no onsubmit for form )
 export default SignUpPage;

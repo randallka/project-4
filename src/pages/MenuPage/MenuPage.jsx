@@ -36,10 +36,12 @@ function removeCard(id) {
             <h3 style={{ color: "white" }}>Menu</h3>
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row>
+            <Grid.Column style={{width: "80vw"}}>
         <Card.Group itemsPerRow={3}>{items?.map((item, i) => {
           return <ItemCard key={i} cardData={item} removeCard={removeCard} />;
-        })}</Card.Group>
-        
+        })}</Card.Group></Grid.Column>
+        </Grid.Row>
         {user._id === restaurant?.owner ? (
           <Grid.Row textAlign="center"><AddItemForm updatePage={updatePage} /></Grid.Row>
         ) : (
