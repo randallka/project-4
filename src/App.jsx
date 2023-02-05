@@ -59,6 +59,7 @@ function App() {
   }
 
   if (user) {
+    
     if (load) {
       return <Load />;
     }
@@ -106,6 +107,7 @@ function App() {
       </UserContext.Provider>
     );
   }
+  
   return (
     <Routes>
       <Route

@@ -15,8 +15,7 @@ const Map = ({ restaurants }) => {
   const user = useContext(UserContext);
 
   useEffect(() => {
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoicmFuZGFsbGthIiwiYSI6ImNsYzEyYTA0ZTN6cnYzdnBsY2kxbnQxeHcifQ.UXuG6o9McGmzc24bhWF44A";
+    mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
     const initializeMap = ({ setMap, mapContainer }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,

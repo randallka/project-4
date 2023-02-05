@@ -21,8 +21,7 @@ function AddressForm({ liftAddress }) {
   });
   const [error, setError] = useState();
   useEffect(() => {
-    const accessToken =
-      "pk.eyJ1IjoicmFuZGFsbGthIiwiYSI6ImNsYzEyYTA0ZTN6cnYzdnBsY2kxbnQxeHcifQ.UXuG6o9McGmzc24bhWF44A";
+    const accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
     setToken(accessToken);
     config.accessToken = accessToken;
   }, []);
