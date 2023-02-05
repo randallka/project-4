@@ -37,7 +37,6 @@ function SignUpPage({ handleSignUpOrLogin }) {
     setLoad(true);
     if (state.password === state.passwordConf) {
       try {
-        console.log(state);
         await userService.signup(state);
         handleSignUpOrLogin();
         if (state.isRestaurantOwner) {
@@ -70,7 +69,6 @@ function SignUpPage({ handleSignUpOrLogin }) {
   }
 
   function liftAddress(address) {
-    console.log("lifting to signup page");
     setState({
       ...state,
       address: address.address,

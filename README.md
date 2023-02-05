@@ -1,32 +1,66 @@
+<h1>FoodFast</h1>
 
-# Mern Boilerplate
+<img src="https://i.imgur.com/9R5zbN5.png">
 
-This is a mern Boilerplate using vite to compile the frontend.  
+<h3>Background</h3>
 
-##### Things to note
+FoodFast is an app for restaurants and customers where restaurants can create their menus for customers to order items from! Customers can browser restaurants nearby and add items to their cart, then as customers order items restaurant owners can mark orders complete.
 
-1. The server code is using `import`, currently you have to add the file extension in the server code. 
+<h5>User Stories</h5>
+<ul>
+    <li><em>As a user, I want to see available restaurants</em></li>
+    <li><em>As a user, I want to browse menus and add items to my cart</em></li>
+    <li><em>As a user, I want to checkout and see the status of my order</em></li>
+    <li><em>As a user(restaurant), I want to add items to my menu.</em></li>
+    <li><em>As a user(restaurant), I want to see a list of pending and past orders</em></li>
+    <li><em>As a user(restaurant), I want to mark orders completed</em></li>
+</ul>
 
-2.  Note the `index.html` for the code needed to be added for hot reloading and etc... 
+<h3>Technologies Used</h3>
+<ul>
+    <li><em>React</em></li>
+    <li><em>express</em></li>
+    <li><em>node.js</em></li>
+    <li><em>JavaScript</em></li>
+    <li><em>semantic-ui</em></li>
+    <li><em>AWS S3 (for images)</em></li>
+    <li><em>Mapbox-GL</em></li>
+    <li><em>MongoDB/mongoose</em></li>
+    <li><em>cyclic.sh(deployment)</em></li>
+</ul>
 
-3. Code is setup to use `JWT` auth
+<h3>Screenshots</h3>
 
-4. Take a look at the server.js code, there is some es6 things to setup `__dirname`
+Customer Home page
+<img src="https://imgur.com/fFyf3vA">
+
+Restaurant page
+<img src="https://imgur.com/i3cKPP3">
+
+Cart 
+<img src="https://imgur.com/x2k72D8">
+
+Orders
+<img src="https://imgur.com/JZUOICG">
+
+Restaurant add item 
+<img src="https://imgur.com/pDGnpWc">
 
 
-#### Setup 
 
-1. ```npm install```
-2. ```npm run dev```
-3. setup `.env` file 
+<h3>Getting Started</h3>
 
-- .env file 
+<h5>Currently FoodFast is too big to be deployed for free</h5>
+View <strong><em>FoodFast</em></strong> here: 
 
-```
-SECRET=seiRocks!
-```
 
-##### Starting the App
+<h3>Next Steps</h3>
 
-- One terminal
-command - ```npm run dev```
+Some features I'd like to add in the future 
+<ul>
+    <li>Delivery route planning</li>
+    <li>Multiple order status(kitchen, on the way, etc)</li>
+    <li>Add contact information to user and restauant models to allow for live updates</li>
+    <li>Add component load icons for image uploads and updates</li>
+    <li>Update maps to make pins more dynamic</li>
+</ul>

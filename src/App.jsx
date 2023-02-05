@@ -25,7 +25,7 @@ function App() {
   const [user, setUser] = useState(userService.getUser());
   const [restaurant, setRestaurant] = useState();
   const [load, setLoad] = useState(false);
-  
+  const [toggle, setToggle] = useState(false)
   useEffect(() => {
     async function getRestaurant() {
       setLoad(true);
@@ -38,7 +38,7 @@ function App() {
       setLoad(false);
     }
     getRestaurant();
-  }, [user]);
+  }, [user, toggle]);
 
   function changeRestaurant(data) {
     setRestaurant(data);
@@ -99,7 +99,7 @@ function App() {
             />
             <Route
               path="/signup/restaurant"
-              element={<RestaurantCreatePage />}
+              element={<RestaurantCreatePage setToggle={setToggle} />}
             />
             <Route path="/*" element={<Navigate to="/login" />} />
           </Routes>
@@ -107,7 +107,7 @@ function App() {
       </UserContext.Provider>
     );
   }
-  
+
   return (
     <Routes>
       <Route

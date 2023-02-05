@@ -9,11 +9,8 @@ export default {
 
 async function signup(req, res) {
   const user = new User(req.body);
-  console.log(user, "in controller");
   try {
-    console.log("try hit awaiting save");
     await user.save();
-    console.log("saved!");
     const token = createJWT(user);
     res.json({ token });
   } catch (err) {

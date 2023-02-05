@@ -44,15 +44,14 @@ export default function UserHomePage() {
           <Map restaurants={restaurants}/>
         </Grid.Row>
         <Grid.Row>
+          <Grid.Column style={{width: '80vw'}}>
           <Card.Group itemsPerRow={3}>
-            <div>
               {restaurants.map((restaurant, i) => {
                 return (
                   <Restaurantcard key={i} data={restaurant}></Restaurantcard>
                 );
               })}
-            </div>
-          </Card.Group>
+          </Card.Group></Grid.Column>
         </Grid.Row>
       </Grid>
     </>

@@ -7,7 +7,7 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Load from "../../components/Loader/Loader";
 import { create } from "../../utils/restaurantApi";
 
-function RestaurantCreatePage() {
+function RestaurantCreatePage({setToggle}) {
   const user = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
@@ -19,11 +19,11 @@ function RestaurantCreatePage() {
 
   const [selectedFile, setSelectedFile] = useState("");
   const [error, setError] = useState("");
-
+  const [load, setLoad] = useState()
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
-    setLoading(true);
+    setLoad(true);
     e.preventDefault();
     const formData = new FormData();
     formData.append("photo", selectedFile);
@@ -33,7 +33,8 @@ function RestaurantCreatePage() {
     }
     try {
       await create(formData);
-      setLoading(false);
+      setLoad(false);
+      setToggle((toggle) => !toggle)
       navigate("/");
     } catch (err) {
       console.log(err.message, " this is the error in restaurant create page");

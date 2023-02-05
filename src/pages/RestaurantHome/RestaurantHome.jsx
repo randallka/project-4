@@ -6,6 +6,7 @@ import { RestaurantContext } from "../../App";
 import EditRestaurantForm from "../../components/EditRestaurantForm/EditRestaurantForm";
 import Load from "../../components/Loader/Loader";
 
+
 function RestaurantHome({ setRestaurant }) {
   const restaurant = useContext(RestaurantContext);
   const [load, setLoad] = useState(false);
