@@ -1,7 +1,5 @@
 <h1>FoodFast</h1>
 
-<img src="https://i.imgur.com/9R5zbN5.png">
-
 <h3>Background</h3>
 
 FoodFast is an app for restaurants and customers where restaurants can create their menus for customers to order items from! Customers can browser restaurants nearby and add items to their cart, then as customers order items restaurant owners can mark orders complete.
@@ -32,19 +30,19 @@ FoodFast is an app for restaurants and customers where restaurants can create th
 <h3>Screenshots</h3>
 
 Customer Home page
-<img src="https://imgur.com/fFyf3vA">
+<img src="https://i.imgur.com/fFyf3vA.png">
 
 Restaurant page
-<img src="https://imgur.com/i3cKPP3">
+<img src="https://i.imgur.com/i3cKPP3.png">
 
 Cart 
-<img src="https://imgur.com/x2k72D8">
+<img src="https://i.imgur.com/x2k72D8.png">
 
 Orders
-<img src="https://imgur.com/JZUOICG">
+<img src="https://i.imgur.com/JZUOICG.png">
 
 Restaurant add item 
-<img src="https://imgur.com/pDGnpWc">
+<img src="https://i.imgur.com/pDGnpWc.png">
 
 
 
