@@ -24,7 +24,6 @@ FoodFast is an app for restaurants and customers where restaurants can create th
     <li><em>AWS S3 (for images)</em></li>
     <li><em>Mapbox-GL</em></li>
     <li><em>MongoDB/mongoose</em></li>
-    <li><em>cyclic.sh(deployment)</em></li>
 </ul>
 
 <h3>Screenshots</h3>
@@ -48,8 +47,7 @@ Restaurant add item
 
 <h3>Getting Started</h3>
 
-<h5>Currently FoodFast is too big to be deployed for free</h5>
-View <strong><em>FoodFast</em></strong> here: 
+View <strong><em>FoodFast</em></strong> here: (currently FoodFast is too big to be deployed for free)
 
 
 <h3>Next Steps</h3>
