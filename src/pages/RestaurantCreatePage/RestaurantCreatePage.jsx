@@ -95,7 +95,7 @@ function RestaurantCreatePage({setToggle}) {
                   onChange={handleFileInput}
                 />
               </Form.Field>
-              {addressConfirmation ? (
+              {address ? (
                 <Button type="submit" className="btn">
                   Create Restaurant
                 </Button>
